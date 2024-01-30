@@ -1,0 +1,13 @@
+.tabs {
+    display: inline-flex;
+    padding: 2px;
+    border-radius: 16px;
+}
+
+.tabs_cotained {
+    background-color: var(--bg-secondary);
+}
+
+.tabs_outlined {
+    gap: 8px;
+}
