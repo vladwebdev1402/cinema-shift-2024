@@ -5,3 +5,9 @@ export interface IAllFilmResponse {
     reason: string;
     films: IFilm[];
 }
+
+export interface IFilmByIdResponse {
+    success: boolean,
+    reason: string;
+    film: IFilm;
+}

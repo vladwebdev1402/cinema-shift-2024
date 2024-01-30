@@ -1,4 +1,4 @@
-import { AfishaService } from '@/modules/afisha';
+import { AfishaService } from '@/services/film-sevice';
 import { configureStore, combineReducers } from '@reduxjs/toolkit/react';
 
 const reducers = combineReducers({

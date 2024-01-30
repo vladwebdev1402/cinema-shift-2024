@@ -1,26 +1,30 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { IFilm } from '@/shared/types';
 import st from './FilmCard.module.scss';
-import { apiUrl } from '@/shared/constants';
 import { Button, Rating } from '@/ui';
+import { FilmCardHead } from '.';
+import { routerPaths } from '@/shared/constants';
 
 interface Props {
   film: IFilm;
 }
 
 const FilmCard: FC<Props> = ({ film }) => {
+  const navigate = useNavigate();
+
+  const moreClick = () => {
+    navigate(routerPaths.navFilmDetail(film.id));
+  };
+
   return (
     <div className={st.film}>
-      <div className={st.film__head}>
-        <img className={st.film__img} src={apiUrl + film.img} />
-        <div className={st.film__genres}>
-          <div className={st.film__genre}>{film.genres[0]}</div>
-          <div className={st.film__country}>
-            США, {film.releaseDate.split(' ')[2]}
-          </div>
-        </div>
-      </div>
+      <FilmCardHead
+        date={film.releaseDate}
+        genres={film.genres}
+        img={film.img}
+      />
       <div className={st.film__item}>
         <h3>{film.name}</h3>
         <div className={st.film__subtitle}>{film.releaseDate}</div>
@@ -31,7 +35,7 @@ const FilmCard: FC<Props> = ({ film }) => {
           Kinopoisk - <Rating rating={film.userRatings.kinopoisk} />
         </div>
       </div>
-      <div className={`${st.film__item} ${st.film__more}`}>
+      <div className={`${st.film__item} ${st.film__more}`} onClick={moreClick}>
         <Button>Подробнее</Button>
       </div>
     </div>

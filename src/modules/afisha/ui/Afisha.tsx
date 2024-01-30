@@ -1,5 +1,5 @@
 import { FilmCard } from '@/components/FilmCard';
-import { useGetAllFilmsQuery } from '..';
+import { useGetAllFilmsQuery } from '../../../services/film-sevice';
 import st from './Afisha.module.scss';
 import { Skeleton } from '@/ui';
 
@@ -25,7 +25,7 @@ const Afisha = () => {
           )}
         </div>
       )}
-      {true && (
+      {isError && (
         <h3 className={st.film__error}>
           Произошла ошибка при загрузке фильмов
         </h3>
