@@ -14,15 +14,16 @@ const TabsGroup: FC<Props> = ({
   variant = 'contained',
 }) => {
   return (
-    <div
-      className={[
-        className,
-        st.tabs,
-        variant === 'contained' ? st.tabs_cotained : '',
-        variant === 'outlined' ? st.tabs_outlined : '',
-      ].join(' ')}
-    >
-      {children}
+    <div className={[className, st.tabs].join(' ')}>
+      <div
+        className={[
+          st.tabs__body,
+          variant === 'contained' ? st.tabs_cotained : '',
+          variant === 'outlined' ? st.tabs_outlined : '',
+        ].join(' ')}
+      >
+        {children}
+      </div>
     </div>
   );
 };

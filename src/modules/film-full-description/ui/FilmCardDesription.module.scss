@@ -27,7 +27,8 @@
   margin-top: 16px;
   span {
     @extend %subtitle;
-    margin-top: 8px;
+    display: block;
+    margin-top: 8px
   }
 }
 

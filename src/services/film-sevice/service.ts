@@ -1,6 +1,6 @@
 import { apiUrl } from '@/shared/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IAllFilmResponse, IFilmByIdResponse } from './type';
+import { IAllFilmResponse, IFilmByIdResponse, IFilmScheduleResponse } from './type';
 
 export const AfishaService = createApi({
   reducerPath: 'AfishaService',
@@ -12,7 +12,10 @@ export const AfishaService = createApi({
     getFilmById: build.query<IFilmByIdResponse, string>({
       query: (id) => `cinema/film/${id}`,
     }),
+    getSheduleByid: build.query<IFilmScheduleResponse, string>({
+      query: (id) => `cinema/film/${id}/schedule`,
+    })
   }),
 });
 
-export const { useGetAllFilmsQuery, useGetFilmByIdQuery } = AfishaService;
+export const { useGetAllFilmsQuery, useGetFilmByIdQuery, useGetSheduleByidQuery } = AfishaService;
