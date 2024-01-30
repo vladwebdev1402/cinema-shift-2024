@@ -4,7 +4,7 @@ import { TAgeRating } from "./TAgeRating";
 export interface IFilm {
     id: string;
     name: string;
-    orignalName: string;
+    originalName: string;
     description: string;
     releaseDate: string;
     actors: IActor[];
@@ -12,9 +12,15 @@ export interface IFilm {
     runtime: number;
     ageRating: TAgeRating;
     genres: string[];
-    useRatings: {
+    userRatings: {
         kinopoisk: string;
         imdb: string;
     };
     img: string;
+   country: {
+        name: string,
+        code: string,
+        code2: string,
+        id: number;
+      }
 }

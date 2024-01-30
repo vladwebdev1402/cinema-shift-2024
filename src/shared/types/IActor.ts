@@ -1,7 +1,7 @@
-import { TProfession } from "./TProffession";
+import { TProfession } from "./TProfession";
 
 export interface IActor {
     id: string;
-    proffessions: TProfession[];
+    professions: TProfession[];
     fullName: string;
 }

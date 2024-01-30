@@ -1,0 +1,25 @@
+.button {
+  padding: 16px 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  width: 100%;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.button_contained {
+  background-color: var(--purple);
+  color: var(--invert);
+  border: 1px solid var(--purple);
+
+  &:hover {
+    background-color: var(--purple-dark);
+  }
+}
+
+.button_outlined {
+  color: var(--text-secondary);
+  &:hover {
+    background-color: var(--bg-secondary);
+  }
+}
