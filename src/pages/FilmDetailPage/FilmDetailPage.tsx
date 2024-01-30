@@ -1,10 +1,9 @@
-import ButtonBack from '@/ui/button/button-back/ButtonBack';
-import st from './FilmDetailPage.module.scss';
+import { FilmFullDescription } from '@/components/FilmCard';
 
 const FilmDetailPage = () => {
   return (
     <>
-      <ButtonBack className={st.detail__back} />
+      <FilmFullDescription />
     </>
   );
 };

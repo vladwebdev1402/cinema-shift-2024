@@ -6,11 +6,12 @@ interface Props {
   img: string;
   genres: string[];
   date: string;
+  className?: string;
 }
 
-const FilmCardHead: FC<Props> = ({ date, genres, img }) => {
+const FilmCardHead: FC<Props> = ({ date, genres, img, className = '' }) => {
   return (
-    <div className={st.film__head}>
+    <div className={`${className} ${st.film__head}`}>
       <img className={st.film__img} src={apiUrl + img} />
       <div className={st.film__genres}>
         <div className={st.film__genre}>{genres[0]}</div>
