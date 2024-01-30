@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { IFilm } from '@/shared/types';
 import st from './FilmCard.module.scss';
 import { apiUrl } from '@/shared/constants';
-import { Button } from '@/ui';
+import { Button, Rating } from '@/ui';
 
 interface Props {
   film: IFilm;
@@ -25,13 +25,13 @@ const FilmCard: FC<Props> = ({ film }) => {
         <h3>{film.name}</h3>
         <div className={st.film__subtitle}>{film.releaseDate}</div>
       </div>
-      <div className={st.film__item}>
-        <h3>рейтинг</h3>
-        <div className={st.film__subtitle}>
-          Kinopoisk - {film.userRatings.kinopoisk}
+      <div className={`${st.film__item_subtitle} ${st.film__item}`}>
+        <h3>Рейтинг</h3>
+        <div className={`${st.film__rating}`}>
+          Kinopoisk - <Rating rating={film.userRatings.kinopoisk} />
         </div>
       </div>
-      <div className={st.film__item}>
+      <div className={`${st.film__item} ${st.film__more}`}>
         <Button>Подробнее</Button>
       </div>
     </div>
