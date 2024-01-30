@@ -1,0 +1,27 @@
+.header {
+  padding: 24px 0px;
+  border-bottom: 1px solid rgba(206, 210, 218, 1);
+}
+
+.header__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  a {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  
+}
+
+.header__nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.header__auth {
+    display: flex;
+    gap: 20px;
+}
