@@ -8,12 +8,26 @@ import { FilmSchedule } from './components/film-schedule';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
-  const { data, isError, isLoading } = useGetSheduleByidQuery(params?.id || '');
+  const { data } = useGetSheduleByidQuery(params?.id || '');
   const [schedule, setSchedule] = useState<IScheduleState>({
     date: '',
     time: '',
     hall: '',
   });
+
+  const onClickDate = (date: string) => {
+    setSchedule({
+      ...schedule,
+      date,
+    });
+  };
+
+  const onClickTime = (time: string) => {
+    setSchedule({
+      ...schedule,
+      time,
+    });
+  };
 
   useEffect(() => {
     if (data)
@@ -32,11 +46,9 @@ const FilmDetailPage = () => {
     <>
       <FilmFullDescription />
       <FilmSchedule
-        schedules={data?.schedules}
-        isError={isError}
-        isLoading={isLoading}
         schedule={schedule}
-        setSchedule={setSchedule}
+        onClickDate={onClickDate}
+        onClickTime={onClickTime}
       />
     </>
   );

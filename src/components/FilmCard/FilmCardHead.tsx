@@ -16,19 +16,17 @@ const FilmCardHead: FC<Props> = ({
   genres,
   img,
   className = '',
-}) => {
-  return (
-    <div className={`${className} ${st.film__head}`}>
-      <img className={st.film__img} src={apiUrl + img} />
-      <div className={st.film__genres}>
-        <div className={st.film__genre}>{genres[0]}</div>
-        <div className={st.film__country}>
-          {country}
-          {date.split(' ')[2] ? `, ${date.split(' ')[2]}` : ''}
-        </div>
+}) => (
+  <div className={`${className} ${st.film__head}`}>
+    <img className={st.film__img} src={apiUrl + img} />
+    <div className={st.film__genres}>
+      <div className={st.film__genre}>{genres[0]}</div>
+      <div className={st.film__country}>
+        {country}
+        {date.split(' ')[2] ? `, ${date.split(' ')[2]}` : ''}
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default FilmCardHead;

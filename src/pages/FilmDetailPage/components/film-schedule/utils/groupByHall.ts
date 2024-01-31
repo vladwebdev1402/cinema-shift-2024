@@ -8,7 +8,7 @@ export interface IGroupedHalls {
 export const groupByHall = (seances: ISeance[]) => {
   return seances.reduce((acc: IGroupedHalls[], seance) => {
     const hallName = seance.hall.name;
-    const hallInGroup = acc.filter((group) => group.name === hallName)[0];
+    const hallInGroup = acc.find((group) => group.name === hallName);
     if (!hallInGroup)
       acc.push({
         name: hallName,

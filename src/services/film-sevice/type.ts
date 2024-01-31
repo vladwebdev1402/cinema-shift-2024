@@ -1,6 +1,6 @@
 import { IFilm, ISchedule } from "@/shared/types";
 
-export interface IAllFilmResponse {
+export interface ITodayFilmResponse {
     success: boolean,
     reason: string;
     films: IFilm[];

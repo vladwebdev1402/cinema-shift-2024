@@ -16,12 +16,6 @@ export interface IPlace {
   type: TPlaceType;
 }
 
-export interface IScheduleState {
-  date: string;
-  time: string;
-  hall: THallName | '';
-}
-
 export type TPlaceType = 'ECONOM' | 'BLOCKED' | 'COMFORT';
 
 export type THallName = 'Red' | 'Blue' | 'Green';

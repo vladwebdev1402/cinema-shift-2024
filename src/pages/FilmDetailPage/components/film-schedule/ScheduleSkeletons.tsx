@@ -5,13 +5,10 @@ const ScheduleSkeletons = () => {
   return (
     <>
       <Skeleton className={st.schedule} />
-
       <Skeleton className={st.hall} />
       <Skeleton className={st.times} />
-
       <Skeleton className={st.hall} />
       <Skeleton className={st.times} />
-
       <Skeleton className={st.hall} />
       <Skeleton className={st.times} />
     </>

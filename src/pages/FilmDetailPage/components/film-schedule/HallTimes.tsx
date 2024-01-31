@@ -2,23 +2,18 @@ import { FC } from 'react';
 
 import st from './FilmSchedule.module.scss';
 import { IGroupedHalls } from './utils/groupByHall';
-import { EnumHallName, IScheduleState } from '@/shared/types';
+import { EnumHallName } from '@/shared/types';
 import { Tab, TabsGroup } from '@/ui';
+import { ScheduleState } from '../../types/ScheduleState';
 
 interface Props {
   hall: IGroupedHalls;
-  schedule: IScheduleState;
-  setSchedule: (value: IScheduleState) => void;
+  schedule: ScheduleState;
+  onClickTime: (value: string) => void;
 }
 
-const HallTimes: FC<Props> = ({ hall, schedule, setSchedule }) => {
-  const timeClick = (time: string) => {
-    setSchedule({
-      ...schedule,
-      hall: hall.name,
-      time: time,
-    });
-  };
+const HallTimes: FC<Props> = ({ hall, schedule, onClickTime }) => {
+  const timeClick = (time: string) => onClickTime(time);
 
   return (
     <div className={st.schedule__item}>
