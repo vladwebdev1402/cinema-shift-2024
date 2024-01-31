@@ -1,15 +1,16 @@
 import { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import ArrowBack from '@/shared/assets/arrow-left.svg?react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import st from './FilmCardDesription.module.scss';
 import { FilmCardHead } from '@/components/FilmCard';
 import { useGetFilmByIdQuery } from '@/services/film-sevice';
-import ButtonBack from '@/ui/button/button-back/ButtonBack';
 import { EnumAgeRating } from '@/shared/types';
-import { Rating } from '@/ui';
+import { Button, Rating } from '@/ui';
 import DetailSkeleton from './DetailSkeleton';
 
 const FilmFullDescription: FC = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams<{ id: string }>();
   const { data, isLoading, isError } = useGetFilmByIdQuery(params?.id || '');
@@ -18,13 +19,25 @@ const FilmFullDescription: FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const onClickBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={`container ${st.detail}`}>
-      <ButtonBack />
+      <Button
+        variant='text'
+        StartIcon={<ArrowBack />}
+        className={st.detail__back}
+        onClick={onClickBack}
+      >
+        Назад
+      </Button>
       <div className={st.detail__wrapper}>
         {data && (
           <>
             <FilmCardHead
+              country={data.film.country.name}
               className={st.detail__head}
               date={data.film.releaseDate}
               genres={data.film.genres}
