@@ -1,0 +1,1 @@
+export type TProfession = "ACTOR" | "DIRECTOR";

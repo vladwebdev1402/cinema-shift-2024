@@ -1,5 +1,11 @@
+import { Afisha } from '@/modules/afisha';
+
 const MainPage = () => {
-  return <div>MainPage</div>;
+  return (
+    <>
+      <Afisha />
+    </>
+  );
 };
 
 export default MainPage;

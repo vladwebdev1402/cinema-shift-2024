@@ -1,0 +1,40 @@
+.afisha {
+    margin-top: 48px;
+}
+
+.afisha__head {
+    padding-left: 16px;
+}
+
+.afisha__body {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.afisha__skeleton {
+    height: 400px;
+}
+
+.film__error {
+    margin-top: 16px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .afisha__body {
+     grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 568px) {
+    .afisha__body {
+     grid-template-columns: repeat(1, 1fr);
+    }
+    .afisha__skeleton  {
+        max-width: 320px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
