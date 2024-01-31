@@ -1,7 +1,7 @@
 import { FilmCard } from '@/components/FilmCard';
-import { useGetAllFilmsQuery } from '../../../services/film-sevice';
 import st from './Afisha.module.scss';
 import { Skeleton } from '@/ui';
+import { useGetAllFilmsQuery } from '@/services/film-sevice';
 
 const Afisha = () => {
   const { data, isLoading, isError } = useGetAllFilmsQuery();

@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
-import { FilmFullDescription } from '@/components/FilmCard';
 import { useGetSheduleByidQuery } from '@/services/film-sevice';
-import { FilmSchedule } from '@/modules/film-schedule';
 import { useEffect, useState } from 'react';
 import { IScheduleState } from '@/shared/types';
+import { FilmFullDescription } from './components/film-full-description';
+import { FilmSchedule } from './components/film-schedule';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();

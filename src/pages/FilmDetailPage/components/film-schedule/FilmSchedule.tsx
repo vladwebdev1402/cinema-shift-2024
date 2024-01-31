@@ -3,9 +3,9 @@ import { FC, useMemo } from 'react';
 import st from './FilmSchedule.module.scss';
 import { ISchedule, IScheduleState } from '@/shared/types';
 import { Tab, TabsGroup } from '@/ui';
-import { groupByHall } from '../utils/groupByHall';
+import { groupByHall } from './utils/groupByHall';
 import HallTimes from './HallTimes';
-import { calcDate } from '../utils/calcDate';
+import { calcDate } from './utils/calcDate';
 import ScheduleSkeletons from './ScheduleSkeletons';
 
 interface Props {

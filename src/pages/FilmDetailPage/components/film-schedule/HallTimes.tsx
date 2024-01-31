@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import st from './FilmSchedule.module.scss';
-import { IGroupedHalls } from '../utils/groupByHall';
+import { IGroupedHalls } from './utils/groupByHall';
 import { EnumHallName, IScheduleState } from '@/shared/types';
 import { Tab, TabsGroup } from '@/ui';
 
