@@ -9,11 +9,12 @@ import ScheduleSkeletons from './ScheduleSkeletons';
 import { useGetSheduleByidQuery } from '@/services/film-sevice';
 import { useParams } from 'react-router-dom';
 import { ScheduleState } from '../../types/ScheduleState';
+import { THallName } from '@/shared/types';
 
 interface Props {
   schedule: ScheduleState;
   onClickDate: (value: string) => void;
-  onClickTime: (value: string) => void;
+  onClickTime: (time: string, hall: THallName) => void;
 }
 
 const FilmSchedule: FC<Props> = ({ schedule, onClickDate, onClickTime }) => {

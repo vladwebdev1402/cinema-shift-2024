@@ -2,14 +2,15 @@ import { useParams } from 'react-router-dom';
 
 import { useGetSheduleByidQuery } from '@/services/film-sevice';
 import { useEffect, useState } from 'react';
-import { IScheduleState } from '@/shared/types';
 import { FilmFullDescription } from './components/film-full-description';
 import { FilmSchedule } from './components/film-schedule';
+import { ScheduleState } from './types/ScheduleState';
+import { THallName } from '@/shared/types';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSheduleByidQuery(params?.id || '');
-  const [schedule, setSchedule] = useState<IScheduleState>({
+  const [schedule, setSchedule] = useState<ScheduleState>({
     date: '',
     time: '',
     hall: '',
@@ -22,10 +23,11 @@ const FilmDetailPage = () => {
     });
   };
 
-  const onClickTime = (time: string) => {
+  const onClickTime = (time: string, hall: THallName) => {
     setSchedule({
       ...schedule,
       time,
+      hall,
     });
   };
 
