@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
-import ArrowBack from '@/shared/assets/arrow-left.svg?react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import st from './FilmCardDesription.module.scss';
 import { FilmCardHead } from '@/components/FilmCard';
 import { useGetFilmByIdQuery } from '@/services/film-sevice';
+import ArrowBack from '@/shared/assets/arrow-left.svg?react';
 import { EnumAgeRating } from '@/shared/types';
 import { Button, Rating } from '@/ui';
 import DetailSkeleton from './DetailSkeleton';
+import st from './FilmCardDesription.module.scss';
 
 const FilmFullDescription: FC = () => {
   const navigate = useNavigate();

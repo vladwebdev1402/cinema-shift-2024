@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTER_PATHS } from '@/shared/constants';
 import { IFilm } from '@/shared/types';
-import st from './FilmCard.module.scss';
 import { Button, Rating } from '@/ui';
 import { FilmCardHead } from '.';
-import { routerPaths } from '@/shared/constants';
+import st from './FilmCard.module.scss';
 
 interface Props {
   film: IFilm;
@@ -15,7 +15,7 @@ const FilmCard: FC<Props> = ({ film }) => {
   const navigate = useNavigate();
 
   const moreClick = () => {
-    navigate(routerPaths.navFilmDetail(film.id));
+    navigate(ROUTER_PATHS.navFilmDetail(film.id));
   };
 
   return (
