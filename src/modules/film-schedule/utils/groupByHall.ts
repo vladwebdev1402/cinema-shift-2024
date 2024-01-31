@@ -2,9 +2,7 @@ import { ISeance, THallName } from '@/shared/types';
 
 export interface IGroupedHalls {
   name: THallName;
-  seances: {
-    time: string;
-  }[];
+  times: string[];
 }
 
 export const groupByHall = (seances: ISeance[]) => {
@@ -14,16 +12,10 @@ export const groupByHall = (seances: ISeance[]) => {
     if (!hallInGroup)
       acc.push({
         name: hallName,
-        seances: [
-          {
-            time: seance.time,
-          },
-        ],
+        times: [seance.time],
       });
     else {
-        hallInGroup.seances.push({
-            time: seance.time,
-        })
+      hallInGroup.times.push(seance.time);
     }
 
     return acc;

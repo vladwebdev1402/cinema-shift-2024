@@ -24,16 +24,14 @@ const HallTimes: FC<Props> = ({ hall, schedule, setSchedule }) => {
     <div className={st.schedule__item}>
       <div className={st.schedule__hall}>{EnumHallName[hall.name]}</div>
       <TabsGroup variant='outlined' className={st.schedule__times}>
-        {hall.seances.map((seanse) => (
+        {hall.times.map((time) => (
           <Tab
-            key={seanse.time}
+            key={time}
             variant='outlined'
-            onClick={() => timeClick(seanse.time)}
-            active={
-              schedule.hall === hall.name && schedule.time === seanse.time
-            }
+            onClick={() => timeClick(time)}
+            active={schedule.hall === hall.name && schedule.time === time}
           >
-            {seanse.time}
+            {time}
           </Tab>
         ))}
       </TabsGroup>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
+import classNames from 'classnames';
 import st from './Button.module.scss';
-
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'contained' | 'outlined';
 }
@@ -12,14 +12,13 @@ const Button: FC<Props> = ({
   children,
   ...props
 }) => {
+  const btnClasses = classNames(className, st.button, {
+    [st.button_contained]: variant === 'contained',
+    [st.button_outlined]: variant === 'outlined',
+  });
+
   return (
-    <button
-      className={`${className} ${st.button} 
-      ${variant === 'contained' ? st.button_contained : ''}
-       ${variant === 'outlined' ? st.button_outlined : ''}`}
-      onClick={onClick}
-      {...props}
-    >
+    <button className={btnClasses} onClick={onClick} {...props}>
       {children}
     </button>
   );
