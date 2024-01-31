@@ -5,6 +5,7 @@ const Root = () => (
   <>
     <Header />
     <Outlet />
+    <footer></footer>
   </>
 );
 

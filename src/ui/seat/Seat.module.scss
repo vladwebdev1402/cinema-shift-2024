@@ -1,0 +1,32 @@
+.button {
+  width: 16px;
+  height: 16px;
+  background-color: var(--purple-dark);
+  border-radius: 4px;
+  transition: 0.3s;
+  color: var(--invert);
+  text-align: center;
+
+  span {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(--purple);
+  }
+
+  &:disabled {
+    background-color: var(--indicator-light);
+  }
+}
+
+.button_active {
+  width: 35px;
+  height: 35px;
+  border-radius: 12px;
+  font-size: 14px;
+
+  span {
+    display: inline;
+  }
+}

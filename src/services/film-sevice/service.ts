@@ -16,7 +16,7 @@ export const FilmService = createApi({
     getFilmById: build.query<IFilmByIdResponse, string>({
       query: (id) => `cinema/film/${id}`,
     }),
-    getSheduleByid: build.query<IFilmScheduleResponse, string>({
+    getSсheduleByid: build.query<IFilmScheduleResponse, string>({
       query: (id) => `cinema/film/${id}/schedule`,
     }),
   }),
@@ -25,5 +25,5 @@ export const FilmService = createApi({
 export const {
   useGetFilmsTodayQuery,
   useGetFilmByIdQuery,
-  useGetSheduleByidQuery,
+  useGetSсheduleByidQuery,
 } = FilmService;

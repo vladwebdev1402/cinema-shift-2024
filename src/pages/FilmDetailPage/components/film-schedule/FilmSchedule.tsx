@@ -6,7 +6,7 @@ import { groupByHall } from './utils/groupByHall';
 import HallTimes from './HallTimes';
 import { calcDate } from './utils/calcDate';
 import ScheduleSkeletons from './ScheduleSkeletons';
-import { useGetSheduleByidQuery } from '@/services/film-sevice';
+import { useGetSсheduleByidQuery } from '@/services/film-sevice';
 import { useParams } from 'react-router-dom';
 import { ScheduleState } from '../../types/ScheduleState';
 import { THallName } from '@/shared/types';
@@ -20,7 +20,9 @@ interface Props {
 const FilmSchedule: FC<Props> = ({ schedule, onClickDate, onClickTime }) => {
   const params = useParams<{ id: string }>();
 
-  const { data, isError, isLoading } = useGetSheduleByidQuery(params?.id || '');
+  const { data, isError, isLoading } = useGetSсheduleByidQuery(
+    params?.id || '',
+  );
 
   const tabDateClick = (value: string) => onClickDate(value);
 

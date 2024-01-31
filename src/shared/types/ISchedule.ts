@@ -16,6 +16,12 @@ export interface IPlace {
   type: TPlaceType;
 }
 
+export interface IChoosePlace {
+  price: number;
+  row: number;
+  column: number;
+}
+
 export type TPlaceType = 'ECONOM' | 'BLOCKED' | 'COMFORT';
 
 export type THallName = 'Red' | 'Blue' | 'Green';
