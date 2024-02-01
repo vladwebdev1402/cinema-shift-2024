@@ -47,7 +47,6 @@
 .choose__seat {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
 
 .choose__item {
@@ -56,4 +55,9 @@
 
 .choose__row {
     margin-top: 4px;
+}
+
+.choose__btn {
+    max-width: 328px;
+    min-width: 250px;
 }

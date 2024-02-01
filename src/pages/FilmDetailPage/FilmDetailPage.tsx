@@ -7,6 +7,7 @@ import { FilmSchedule } from './components/film-schedule';
 import { FilmChooseSeat } from './components/film-choose-seat';
 import { useChoose } from './hooks/useChoose';
 import { useSchedule } from './hooks/useSchedule';
+import { FilmBuyTicket } from './components/film-buy-ticket';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
@@ -14,6 +15,9 @@ const FilmDetailPage = () => {
   const { chooseSeats, onSeatClick, clearChooseSeats } = useChoose();
   const { schedule, onClickDate, onClickTime } = useSchedule(data?.schedules);
   const [isBuyOpen, setIsBuyOpen] = useState(false);
+
+  const onOpenBuy = () => setIsBuyOpen(true);
+  const onCloseBuy = () => setIsBuyOpen(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -32,7 +36,9 @@ const FilmDetailPage = () => {
         chooseSeats={chooseSeats}
         onSeatClick={onSeatClick}
         clearChooseSeats={clearChooseSeats}
+        onOpenBuy={onOpenBuy}
       />
+      {isBuyOpen && <FilmBuyTicket onCloseBuy={onCloseBuy} />}
     </>
   );
 };

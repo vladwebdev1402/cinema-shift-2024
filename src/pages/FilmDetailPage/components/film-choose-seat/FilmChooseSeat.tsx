@@ -9,12 +9,14 @@ import { useCurrentTime } from './hooks/useCurrentTime';
 import { EnumHallName, IChoosePlace, monthToLocal } from '@/shared/types';
 import { groupedSeatsByRow } from './utils/groupedSeatsByRow';
 import { formateDate } from '@/shared/utils';
+import { Button } from '@/ui';
 
 interface FilmChooseSeatProps {
   schedule: ScheduleState;
   chooseSeats: IChoosePlace[];
   onSeatClick: (seat: IChoosePlace) => void;
   clearChooseSeats: () => void;
+  onOpenBuy: () => void;
 }
 
 const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
@@ -22,6 +24,7 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
   chooseSeats,
   onSeatClick,
   clearChooseSeats,
+  onOpenBuy,
 }) => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSсheduleByidQuery(params?.id || '');
@@ -97,6 +100,13 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
               Сумма: {chooseSeats.reduce((acc, seat) => acc + seat.price, 0)}
             </h3>
           </div>
+          <Button
+            className={`${st.choose__item} ${st.choose__btn}`}
+            fullWidth
+            onClick={() => onOpenBuy()}
+          >
+            Купить
+          </Button>
         </div>
       </div>
     </div>
