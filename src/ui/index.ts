@@ -5,4 +5,5 @@ import Tab from './tab/Tab';
 import TabsGroup from './tab/TabsGroup';
 import Seat from './seat/Seat';
 import Modal from './modal/Modal';
-export { Button, Rating, Skeleton, Tab, TabsGroup, Seat, Modal };
+import Input from './input/Input';
+export { Button, Rating, Skeleton, Tab, TabsGroup, Seat, Modal, Input };

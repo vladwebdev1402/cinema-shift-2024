@@ -10,7 +10,6 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: FC<Props> = ({
   variant = 'contained',
   className = '',
-  onClick,
   children,
   StartIcon,
   fullWidth,
@@ -24,7 +23,7 @@ const Button: FC<Props> = ({
   });
 
   return (
-    <button className={btnClasses} onClick={onClick} {...props}>
+    <button className={btnClasses} {...props}>
       {StartIcon && <div className={st.button__icon}>{StartIcon}</div>}
       {children}
     </button>

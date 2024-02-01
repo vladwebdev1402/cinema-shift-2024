@@ -9,7 +9,13 @@ interface ModalProps extends ComponentProps<'div'> {
   title?: string;
 }
 
-const Modal: FC<ModalProps> = ({ title = '', onClose, children, ...props }) => {
+const Modal: FC<ModalProps> = ({
+  title = '',
+  onClose,
+  children,
+  className = '',
+  ...props
+}) => {
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0];
 
@@ -26,7 +32,7 @@ const Modal: FC<ModalProps> = ({ title = '', onClose, children, ...props }) => {
 
   return (
     <div className={st.modal} onClick={onClose} {...props}>
-      <div className={st.modal__body} onClick={clickBody}>
+      <div className={`${className} ${st.modal__body}`} onClick={clickBody}>
         <Button
           variant='text'
           StartIcon={<Cross />}
