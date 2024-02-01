@@ -6,7 +6,6 @@ export const useCurrentTime = (
   schedules: ISchedule[] | undefined,
   currentSchedule: ScheduleState,
 ) => {
-    console.log("@ useCurrentTime");
   const currentSeanse = useMemo(() => {
     if (schedules)
       return schedules.find((seanse) => seanse.date === currentSchedule.date);

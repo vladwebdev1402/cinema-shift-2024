@@ -1,23 +1,37 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
 import st from './FilmChooseSeat.module.scss';
 import { ScheduleState } from '../../types/ScheduleState';
 import { useGetSсheduleByidQuery } from '@/services/film-sevice';
-import { useParams } from 'react-router-dom';
 import { Seats } from '@/components/Seats';
 import { useCurrentTime } from './hooks/useCurrentTime';
-import { useChoose } from './hooks/useChoose';
+import { EnumHallName, IChoosePlace, monthToLocal } from '@/shared/types';
+import { groupedSeatsByRow } from './utils/groupedSeatsByRow';
+import { formateDate } from '@/shared/utils';
 
 interface FilmChooseSeatProps {
   schedule: ScheduleState;
+  chooseSeats: IChoosePlace[];
+  onSeatClick: (seat: IChoosePlace) => void;
+  clearChooseSeats: () => void;
 }
 
-const FilmChooseSeat: FC<FilmChooseSeatProps> = ({ schedule }) => {
+const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
+  schedule,
+  chooseSeats,
+  onSeatClick,
+  clearChooseSeats,
+}) => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSсheduleByidQuery(params?.id || '');
 
   const currentTime = useCurrentTime(data?.schedules, schedule);
-  const { chooseSeats, onSeatClick, clearChooseSeats } = useChoose();
+
+  const groupedChooseSeats = groupedSeatsByRow(chooseSeats);
+  const currentFormateDate = useMemo(() => {
+    return formateDate(schedule.date);
+  }, [schedule.date]);
 
   useEffect(() => {
     clearChooseSeats();
@@ -44,7 +58,46 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({ schedule }) => {
             />
           )}
         </div>
-        <div className={st.choose__info}></div>
+        <div className={st.choose__info}>
+          <div className={st.choose__item}>
+            <div className={st.choose__txt}>Зал</div>
+            <div className={st.choose__txt_value}>
+              {schedule.hall && EnumHallName[schedule.hall]}
+            </div>
+          </div>
+          <div className={st.choose__item}>
+            <div className={st.choose__txt}>Дата и время</div>
+            <div className={st.choose__txt_value}>
+              {currentFormateDate.getDate()}{' '}
+              {monthToLocal[currentFormateDate.getMonth()]}{' '}
+              {currentTime?.time || ''}
+            </div>
+          </div>
+          <div className={st.choose__item}>
+            <div className={st.choose__txt}>Места</div>
+            <div className={st.choose__txt_value}>
+              {groupedChooseSeats
+                .sort((a, b) => a.row - b.row)
+                .map((seats) => (
+                  <div key={seats.row} className={st.choose__row}>
+                    Ряд {seats.row} -
+                    {seats.columns.map((column, idx) => (
+                      <>
+                        {column}
+                        {idx !== seats.columns.length - 1 && ','}
+                      </>
+                    ))}
+                  </div>
+                ))}
+              {groupedChooseSeats.length === 0 && 'Выберите место'}
+            </div>
+          </div>
+          <div className={st.choose__item}>
+            <h3>
+              Сумма: {chooseSeats.reduce((acc, seat) => acc + seat.price, 0)}
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   );

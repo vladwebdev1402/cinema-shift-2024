@@ -1,45 +1,19 @@
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import { useGetSсheduleByidQuery } from '@/services/film-sevice';
-import { useEffect, useState } from 'react';
 import { FilmFullDescription } from './components/film-full-description';
 import { FilmSchedule } from './components/film-schedule';
-import { ScheduleState } from './types/ScheduleState';
-import { THallName } from '@/shared/types';
 import { FilmChooseSeat } from './components/film-choose-seat';
+import { useChoose } from './hooks/useChoose';
+import { useSchedule } from './hooks/useSchedule';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSсheduleByidQuery(params?.id || '');
-  const [schedule, setSchedule] = useState<ScheduleState>({
-    date: '',
-    time: '',
-    hall: '',
-  });
-
-  const onClickDate = (date: string) => {
-    setSchedule({
-      ...schedule,
-      date,
-    });
-  };
-
-  const onClickTime = (time: string, hall: THallName) => {
-    setSchedule({
-      ...schedule,
-      time,
-      hall,
-    });
-  };
-
-  useEffect(() => {
-    if (data)
-      setSchedule({
-        date: data.schedules[0].date,
-        hall: data.schedules[0].seances[0].hall.name,
-        time: data.schedules[0].seances[0].time,
-      });
-  }, [data]);
+  const { chooseSeats, onSeatClick, clearChooseSeats } = useChoose();
+  const { schedule, onClickDate, onClickTime } = useSchedule(data?.schedules);
+  const [isBuyOpen, setIsBuyOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -53,7 +27,12 @@ const FilmDetailPage = () => {
         onClickDate={onClickDate}
         onClickTime={onClickTime}
       />
-      <FilmChooseSeat schedule={schedule} />
+      <FilmChooseSeat
+        schedule={schedule}
+        chooseSeats={chooseSeats}
+        onSeatClick={onSeatClick}
+        clearChooseSeats={clearChooseSeats}
+      />
     </>
   );
 };
