@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userAPI } from './userAPI';
 import { AuthCodeBody } from './types';
+import { IUser } from '@/shared/types/IUser';
 
 export const fetchCode = createAsyncThunk(
   'user/getCode',
@@ -37,3 +38,12 @@ export const getUserSession = createAsyncThunk(
     }
   },
 ); 
+
+export const updateUser = createAsyncThunk("user/update", async (user: IUser, thunkAPI) => {
+  try {
+    await userAPI.updateUser(user);
+    return user;
+  } catch {
+    thunkAPI.rejectWithValue('Ошибка');
+  }
+})

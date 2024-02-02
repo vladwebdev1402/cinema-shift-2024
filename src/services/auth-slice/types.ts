@@ -1,4 +1,4 @@
-import { IUser } from "@/shared/types/IUser";
+import { IUser } from '@/shared/types/IUser';
 
 export interface CreateOtpResponse {
   data: {
@@ -34,3 +34,9 @@ export interface SessionResponse {
   };
 }
 
+export interface updateUserResponse {
+  data: {
+    success: boolean;
+    reason: string;
+  };
+}

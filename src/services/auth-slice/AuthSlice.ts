@@ -1,6 +1,11 @@
 import { IUser } from '@/shared/types/IUser';
-import { createSlice } from '@reduxjs/toolkit';
-import { authByCode, fetchCode, getUserSession } from './actionCreator';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  authByCode,
+  fetchCode,
+  getUserSession,
+  updateUser,
+} from './actionCreator';
 import { TokenService } from '@/shared/api';
 
 interface UserSliceState {
@@ -9,7 +14,6 @@ interface UserSliceState {
   user: IUser | null;
   isAuth: boolean;
   code: boolean;
-  isSuccess: boolean;
 }
 
 const initialState: UserSliceState = {
@@ -18,7 +22,6 @@ const initialState: UserSliceState = {
   code: false,
   isAuth: TokenService.checkToken(),
   isLoading: false,
-  isSuccess: false,
 };
 
 const UserSlice = createSlice({
@@ -26,14 +29,17 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     clearAfterAuth: (state) => {
-      state.isSuccess = false;
       state.code = false;
+      state.isAuth = true;
     },
     logout: (state) => {
       state.isAuth = false;
       state.user = null;
       TokenService.removeToken();
-    }
+    },
+    editUser: (state, action: PayloadAction<IUser>) => {
+      state.user === action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCode.pending, (state) => {
@@ -54,13 +60,11 @@ const UserSlice = createSlice({
     });
     builder.addCase(authByCode.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.isAuth = true;
       TokenService.setToken(action.payload!.token);
       state.user = {
         middlename: '',
         ...action.payload!.user,
       };
-      state.isSuccess = true;
     });
     builder.addCase(authByCode.rejected, (state) => {
       state.isLoading = false;
@@ -80,9 +84,20 @@ const UserSlice = createSlice({
       state.isLoading = false;
       state.error = 'Ошибка';
     });
+    builder.addCase(updateUser.pending, (state) => {
+      state.isLoading = true;
+      state.error = '';
+    });
+    builder.addCase(updateUser.fulfilled, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(updateUser.rejected, (state) => {
+      state.isLoading = false;
+      state.error = 'Ошибка';
+    });
   },
 });
 
 export const UserReducer = UserSlice.reducer;
 
-export const { clearAfterAuth, logout } = UserSlice.actions;
+export const { clearAfterAuth, logout, editUser } = UserSlice.actions;

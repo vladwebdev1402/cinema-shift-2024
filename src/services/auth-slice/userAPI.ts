@@ -1,7 +1,8 @@
 import { API_URL } from '@/shared/constants';
 import axios from 'axios';
-import { AuthCodeBody, AuthCodeResponse, CreateOtpResponse, SessionResponse } from './types';
+import { AuthCodeBody, AuthCodeResponse, CreateOtpResponse, SessionResponse, updateUserResponse } from './types';
 import { TokenService } from '@/shared/api';
+import { IUser } from '@/shared/types/IUser';
 
 export class userAPI {
   static getCode = async (phone: string) => {
@@ -33,4 +34,16 @@ export class userAPI {
     );
     return response.data;
   };
+
+  static updateUser = async (user: IUser) => {
+    const response = await axios.patch<updateUserResponse>(
+      API_URL + '/users/profile',
+      {phone: user.phone, profile: {...user}},
+      {headers: {
+        Authorization: `Bearer ${TokenService.getToken()}`
+      }}
+    )
+
+    return response.data
+  }
 }

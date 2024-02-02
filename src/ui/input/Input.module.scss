@@ -10,6 +10,11 @@
       outline: none;
       border: 2px solid var(--purple);
     }
+
+    &:disabled {
+      background-color: var(--bg-disabled);
+      cursor: not-allowed;
+    }
   }
 
 }

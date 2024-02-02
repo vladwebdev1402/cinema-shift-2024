@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import st from './Auth.module.scss';
 import { Button, Input } from '@/ui';
 import { onChangeWithRegexp } from '@/shared/utils';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks';
-import { authByCode, clearAfterAuth, fetchCode } from '@/services/auth-slice';
-import { useNavigate } from 'react-router-dom';
-import { ROUTER_PATHS } from '@/shared/constants';
+import { authByCode, fetchCode } from '@/services/auth-slice';
 
 interface AuthForm {
   phone: string;
@@ -23,7 +20,7 @@ const AuthByPhone = () => {
     formState: { errors },
   } = useForm<AuthForm>();
 
-  const navigate = useNavigate();
+  const { code, isLoading } = useAppSelector((state) => state.UserReducer);
 
   const onSubmit = handleSubmit((data) => {
     if (!code) dispatch(fetchCode(data.phone));
@@ -37,16 +34,6 @@ const AuthByPhone = () => {
   });
 
   const dispatch = useAppDispatch();
-  const { code, isLoading, isSuccess } = useAppSelector(
-    (state) => state.UserReducer,
-  );
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(ROUTER_PATHS.profile);
-      dispatch(clearAfterAuth());
-    }
-  }, [isSuccess]);
 
   return (
     <div className={`container ${st.auth}`}>

@@ -1,19 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { FC } from 'react';
-import { FormQuestionnaireValues } from './types/form';
 
-import st from './FilmBuyTicket.module.scss';
+import st from './UserForm.module.scss';
 import { Button, Input } from '@/ui';
 import { onChangeWithRegexp } from '@/shared/utils';
+import { IUser } from '@/shared/types/IUser';
 
-interface QuestionnaireProps {
-  saveQuestionnaire: (value: FormQuestionnaireValues) => void;
-  questionnaire: FormQuestionnaireValues;
+interface UserFormProps {
+  handleUserSubmit: (value: IUser) => void;
+  user: IUser;
+  buttonText?: string;
+  disablePhone?: boolean;
 }
 
-const QuestionnaireForm: FC<QuestionnaireProps> = ({
-  saveQuestionnaire,
-  questionnaire,
+const UserForm: FC<UserFormProps> = ({
+  handleUserSubmit,
+  user,
+  disablePhone = false,
+  buttonText = 'Продолжить',
 }) => {
   const {
     register,
@@ -21,9 +25,9 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<FormQuestionnaireValues>({ defaultValues: { ...questionnaire } });
+  } = useForm<IUser>({ defaultValues: { ...user } });
 
-  const onSubmit = handleSubmit((data) => saveQuestionnaire(data));
+  const onSubmit = handleSubmit((data) => handleUserSubmit(data));
 
   return (
     <form onSubmit={onSubmit}>
@@ -52,7 +56,7 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
         label='Фамилия*'
         fullWidth
         placeholder='Иванов'
-        className={st.buy__input}
+        className={st.form__item}
         {...register('lastname', {
           pattern: {
             value:
@@ -74,7 +78,7 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
         label='Отчество'
         fullWidth
         placeholder='Иванович'
-        className={st.buy__input}
+        className={st.form__item}
         {...register('middlename', {
           pattern: {
             value:
@@ -95,7 +99,7 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
         label='Телефон*'
         fullWidth
         placeholder='89009009090'
-        className={st.buy__input}
+        className={st.form__item}
         {...register('phone', {
           pattern: {
             value: /^(7|8)\d{10}$/,
@@ -109,12 +113,13 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
         value={watch('phone')}
         isError={!!errors.phone}
         errorMessage={errors.phone?.message || ''}
+        disabled={disablePhone}
       />
-      <Button type='submit' fullWidth className={st.buy__btn}>
-        Продолжить
+      <Button type='submit' fullWidth className={st.form__item}>
+        {buttonText}
       </Button>
     </form>
   );
 };
 
-export default QuestionnaireForm;
+export default UserForm;
