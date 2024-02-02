@@ -1,4 +1,5 @@
 export interface IOrder {
+  _id: string;
   filmName: string;
   orderNumber: number;
   tickets: {
@@ -11,7 +12,11 @@ export interface IOrder {
     };
     phone: string;
   }[];
-
   phone: string;
-  status: string;
+  status: TOrderStatus;
+}
+
+export type TOrderStatus = 'PAYED';
+export enum EnumOrderStatus {
+  'PAYED' = 'Оплачен',
 }

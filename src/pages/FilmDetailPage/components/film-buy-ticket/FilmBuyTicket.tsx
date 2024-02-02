@@ -5,13 +5,13 @@ import st from './FilmBuyTicket.module.scss';
 import { Modal } from '@/ui';
 import { FormCardValues } from './types/form';
 import CardForm from './CardForm';
-import { usePayTicketMutation } from '@/services/film-sevice';
 import { ScheduleState } from '../../types/ScheduleState';
 import { IChoosePlace } from '@/shared/types';
 import OrderInfo from './OrderInfo';
 import { IUser } from '@/shared/types/IUser';
 import { UserForm } from '@/components/UserForm';
 import { useAppSelector } from '@/shared/hooks';
+import { usePayTicketMutation } from '@/services/tickets-service';
 
 interface FilmBuyTicketProps {
   onCloseBuy: () => void;

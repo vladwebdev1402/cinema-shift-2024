@@ -38,7 +38,7 @@ const UserSlice = createSlice({
       TokenService.removeToken();
     },
     editUser: (state, action: PayloadAction<IUser>) => {
-      state.user === action.payload;
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
