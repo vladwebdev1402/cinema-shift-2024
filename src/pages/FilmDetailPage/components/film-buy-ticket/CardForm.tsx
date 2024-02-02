@@ -8,9 +8,10 @@ import { onChangeWithRegexp } from '@/shared/utils';
 
 interface CardForm {
   returnToQuestionnaire: () => void;
+  onPay: (data: FormCardValues) => void;
 }
 
-const CardForm: FC<CardForm> = ({ returnToQuestionnaire }) => {
+const CardForm: FC<CardForm> = ({ returnToQuestionnaire, onPay }) => {
   const {
     handleSubmit,
     register,
@@ -19,7 +20,7 @@ const CardForm: FC<CardForm> = ({ returnToQuestionnaire }) => {
     formState: { errors },
   } = useForm<FormCardValues>();
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => onPay(data));
 
   return (
     <form onSubmit={onSubmit} className={st.card__form}>
@@ -28,38 +29,38 @@ const CardForm: FC<CardForm> = ({ returnToQuestionnaire }) => {
           label='Номер*'
           fullWidth
           placeholder='88884444'
-          {...register('number', {
+          {...register('pan', {
             required: 'Поле необходимо обязательно заполнить',
             minLength: {
               value: 8,
               message: 'Длина номера карты равна 8 символам',
             },
           })}
-          value={watch('number')}
+          value={watch('pan')}
           onChange={onChangeWithRegexp(/^[0-9]{0,8}$/, (value) =>
-            setValue('number', value),
+            setValue('pan', value),
           )}
-          isError={!!errors.number}
-          errorMessage={errors.number?.message || ''}
+          isError={!!errors.pan}
+          errorMessage={errors.pan?.message || ''}
         />
         <div className={st.card__bottom}>
           <Input
             label='Срок*'
             fullWidth
             placeholder='00/00'
-            {...register('date', {
+            {...register('expireDate', {
               required: 'Обязательное поле',
               pattern: {
                 value: /^(?:[0][0-9]|[1][0-2])\/[0-9][0-9]$/,
                 message: 'Введите месяц и год в формате 00/00',
               },
             })}
-            value={watch('date')}
+            value={watch('expireDate')}
             onChange={onChangeWithRegexp(/^[0-9/]{0,5}$/, (value) =>
-              setValue('date', value),
+              setValue('expireDate', value),
             )}
-            isError={!!errors.date}
-            errorMessage={errors.date?.message || ''}
+            isError={!!errors.expireDate}
+            errorMessage={errors.expireDate?.message || ''}
           />
           <Input
             label='CVV*'

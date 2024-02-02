@@ -4,9 +4,11 @@ import {
   IFilmByIdResponse,
   IFilmScheduleResponse,
   ITodayFilmResponse,
+  PayTicket,
 } from './type';
+import { IOrder } from '@/shared/types/IOrder';
 
-export const FilmService = createApi({
+export const CinemaService = createApi({
   reducerPath: 'AfishaService',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (build) => ({
@@ -14,11 +16,20 @@ export const FilmService = createApi({
       query: () => '/cinema/today',
     }),
     getFilmById: build.query<IFilmByIdResponse, string>({
-      query: (id) => `cinema/film/${id}`,
+      query: (id) => `/cinema/film/${id}`,
     }),
     getSсheduleByid: build.query<IFilmScheduleResponse, string>({
-      query: (id) => `cinema/film/${id}/schedule`,
+      query: (id) => `/cinema/film/${id}/schedule`,
     }),
+    payTicket: build.mutation<IOrder,PayTicket>({
+      query: (order) => ({
+        url: `/cinema/payment`,
+        method: "POST",
+        body: {
+          ...order
+        }
+      }),
+    })
   }),
 });
 
@@ -26,4 +37,5 @@ export const {
   useGetFilmsTodayQuery,
   useGetFilmByIdQuery,
   useGetSсheduleByidQuery,
-} = FilmService;
+  usePayTicketMutation,
+} = CinemaService;

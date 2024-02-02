@@ -6,7 +6,7 @@ export interface FormQuestionnaireValues {
   }
   
   export interface FormCardValues {
-    number: string;
+    pan: string;
+    expireDate: string;
     cvv: string;
-    date: string;
   }

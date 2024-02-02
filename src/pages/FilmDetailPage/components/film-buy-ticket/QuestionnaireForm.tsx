@@ -53,7 +53,7 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
         fullWidth
         placeholder='Иванов'
         className={st.buy__input}
-        {...register('middlename', {
+        {...register('lastname', {
           pattern: {
             value:
               /^(?:[А-Яа-я `'-]{1,60}[А-Яа-я]|[A-Za-z `'-]{1,60}[A-Za-z])$/,
@@ -64,18 +64,18 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
           required: 'Поле необходимо обязательно заполнить',
         })}
         onChange={onChangeWithRegexp(/^[A-Za-zА-Яа-я `'-]{0,60}$/, (value) =>
-          setValue('middlename', value),
+          setValue('lastname', value),
         )}
-        value={watch('middlename')}
-        isError={!!errors.middlename}
-        errorMessage={errors.middlename?.message || ''}
+        value={watch('lastname')}
+        isError={!!errors.lastname}
+        errorMessage={errors.lastname?.message || ''}
       />
       <Input
         label='Отчество'
         fullWidth
         placeholder='Иванович'
         className={st.buy__input}
-        {...register('lastname', {
+        {...register('middlename', {
           pattern: {
             value:
               /^(?:[А-Яа-я `'-]{1,60}[А-Яа-я]|[A-Za-z `'-]{1,60}[A-Za-z])$/,
@@ -85,11 +85,11 @@ const QuestionnaireForm: FC<QuestionnaireProps> = ({
           },
         })}
         onChange={onChangeWithRegexp(/^[A-Za-zА-Яа-я `'-]{0,60}$/, (value) =>
-          setValue('lastname', value),
+          setValue('middlename', value),
         )}
-        value={watch('lastname')}
-        isError={!!errors.lastname}
-        errorMessage={errors.lastname?.message || ''}
+        value={watch('middlename')}
+        isError={!!errors.middlename}
+        errorMessage={errors.middlename?.message || ''}
       />
       <Input
         label='Телефон*'

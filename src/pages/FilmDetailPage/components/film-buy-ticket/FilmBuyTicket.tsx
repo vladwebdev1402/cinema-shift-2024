@@ -1,14 +1,28 @@
+import { useParams } from 'react-router-dom';
 import { FC, useState } from 'react';
+
 import { Modal } from '@/ui';
-import { FormQuestionnaireValues } from './types/form';
+import { FormCardValues, FormQuestionnaireValues } from './types/form';
 import QuestionnaireForm from './QuestionnaireForm';
 import CardForm from './CardForm';
+import { usePayTicketMutation } from '@/services/film-sevice';
+import { ScheduleState } from '../../types/ScheduleState';
+import { IChoosePlace } from '@/shared/types';
 
 interface FilmBuyTicketProps {
   onCloseBuy: () => void;
+  schedule: ScheduleState;
+  chooseSeats: IChoosePlace[];
 }
 
-const FilmBuyTicket: FC<FilmBuyTicketProps> = ({ onCloseBuy }) => {
+const FilmBuyTicket: FC<FilmBuyTicketProps> = ({
+  schedule,
+  chooseSeats,
+  onCloseBuy,
+}) => {
+  const params = useParams<{ id: string }>();
+  const [payTicket, { isLoading, isSuccess, data }] = usePayTicketMutation();
+
   const [isPayment, setIsPayment] = useState(false);
   const [questionnaire, setQuestionnaire] = useState<FormQuestionnaireValues>({
     firstname: '',
@@ -23,8 +37,19 @@ const FilmBuyTicket: FC<FilmBuyTicketProps> = ({ onCloseBuy }) => {
   };
 
   const returnToQuestionnaire = () => {
-    console.log(123);
     setIsPayment(false);
+  };
+
+  const onPay = (cardData: FormCardValues) => {
+    payTicket({
+      filmId: params?.id || '',
+      debitCard: { ...cardData },
+      person: {
+        ...questionnaire,
+      },
+      seance: { ...schedule },
+      tickets: chooseSeats,
+    });
   };
 
   return (
@@ -40,7 +65,9 @@ const FilmBuyTicket: FC<FilmBuyTicketProps> = ({ onCloseBuy }) => {
           questionnaire={questionnaire}
         />
       )}
-      {isPayment && <CardForm returnToQuestionnaire={returnToQuestionnaire} />}
+      {isPayment && (
+        <CardForm returnToQuestionnaire={returnToQuestionnaire} onPay={onPay} />
+      )}
     </Modal>
   );
 };

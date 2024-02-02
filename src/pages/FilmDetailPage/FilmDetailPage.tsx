@@ -38,7 +38,13 @@ const FilmDetailPage = () => {
         clearChooseSeats={clearChooseSeats}
         onOpenBuy={onOpenBuy}
       />
-      {isBuyOpen && <FilmBuyTicket onCloseBuy={onCloseBuy} />}
+      {isBuyOpen && (
+        <FilmBuyTicket
+          onCloseBuy={onCloseBuy}
+          schedule={schedule}
+          chooseSeats={chooseSeats}
+        />
+      )}
     </>
   );
 };
