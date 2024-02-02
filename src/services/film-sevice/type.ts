@@ -1,4 +1,5 @@
 import { IFilm, ISchedule } from '@/shared/types';
+import { IOrder } from '@/shared/types/IOrder';
 
 export interface ITodayFilmResponse {
   success: boolean;
@@ -38,4 +39,10 @@ export interface PayTicket {
     row: number;
     column: number;
   }[];
+}
+
+
+export interface PayTicketResponse {
+  success: boolean;
+  order: IOrder
 }

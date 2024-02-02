@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { FC, useState } from 'react';
 
+import st from './FilmBuyTicket.module.scss';
 import { Modal } from '@/ui';
 import { FormCardValues, FormQuestionnaireValues } from './types/form';
 import QuestionnaireForm from './QuestionnaireForm';
@@ -8,6 +9,7 @@ import CardForm from './CardForm';
 import { usePayTicketMutation } from '@/services/film-sevice';
 import { ScheduleState } from '../../types/ScheduleState';
 import { IChoosePlace } from '@/shared/types';
+import OrderInfo from './OrderInfo';
 
 interface FilmBuyTicketProps {
   onCloseBuy: () => void;
@@ -52,24 +54,36 @@ const FilmBuyTicket: FC<FilmBuyTicketProps> = ({
     });
   };
 
-  return (
-    <Modal
-      onClose={() => onCloseBuy()}
-      title={
-        isPayment ? 'Введите данные карты для оплаты' : 'Введите ваши даные'
-      }
-    >
-      {!isPayment && (
+  if (isSuccess && data)
+    return (
+      <Modal onClose={() => onCloseBuy()} className={st.modal__info}>
+        <OrderInfo order={data.order} schedule={schedule} />
+      </Modal>
+    );
+
+  if (isPayment)
+    return (
+      <Modal
+        onClose={() => onCloseBuy()}
+        title='Введите данные карты для оплаты'
+      >
+        <CardForm
+          returnToQuestionnaire={returnToQuestionnaire}
+          onPay={onPay}
+          isLoading={isLoading}
+        />
+      </Modal>
+    );
+
+  if (!isPayment)
+    return (
+      <Modal onClose={() => onCloseBuy()} title='Введите ваши даные'>
         <QuestionnaireForm
           saveQuestionnaire={saveQuestionnaire}
           questionnaire={questionnaire}
         />
-      )}
-      {isPayment && (
-        <CardForm returnToQuestionnaire={returnToQuestionnaire} onPay={onPay} />
-      )}
-    </Modal>
-  );
+      </Modal>
+    );
 };
 
 export default FilmBuyTicket;

@@ -5,8 +5,8 @@ import {
   IFilmScheduleResponse,
   ITodayFilmResponse,
   PayTicket,
+  PayTicketResponse,
 } from './type';
-import { IOrder } from '@/shared/types/IOrder';
 
 export const CinemaService = createApi({
   reducerPath: 'AfishaService',
@@ -21,15 +21,15 @@ export const CinemaService = createApi({
     getSсheduleByid: build.query<IFilmScheduleResponse, string>({
       query: (id) => `/cinema/film/${id}/schedule`,
     }),
-    payTicket: build.mutation<IOrder,PayTicket>({
+    payTicket: build.mutation<PayTicketResponse, PayTicket>({
       query: (order) => ({
         url: `/cinema/payment`,
-        method: "POST",
+        method: 'POST',
         body: {
-          ...order
-        }
+          ...order,
+        },
       }),
-    })
+    }),
   }),
 });
 

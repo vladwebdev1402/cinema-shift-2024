@@ -9,9 +9,14 @@ import { onChangeWithRegexp } from '@/shared/utils';
 interface CardForm {
   returnToQuestionnaire: () => void;
   onPay: (data: FormCardValues) => void;
+  isLoading: boolean;
 }
 
-const CardForm: FC<CardForm> = ({ returnToQuestionnaire, onPay }) => {
+const CardForm: FC<CardForm> = ({
+  returnToQuestionnaire,
+  onPay,
+  isLoading,
+}) => {
   const {
     handleSubmit,
     register,
@@ -82,7 +87,12 @@ const CardForm: FC<CardForm> = ({ returnToQuestionnaire, onPay }) => {
           />
         </div>
       </div>
-      <Button type='submit' fullWidth className={st.card__buy}>
+      <Button
+        type='submit'
+        fullWidth
+        className={st.card__buy}
+        loading={isLoading}
+      >
         Оплатить
       </Button>
       <Button variant='text' onClick={returnToQuestionnaire} fullWidth>

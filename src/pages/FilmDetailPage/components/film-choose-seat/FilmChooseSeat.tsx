@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import st from './FilmChooseSeat.module.scss';
@@ -6,10 +6,8 @@ import { ScheduleState } from '../../types/ScheduleState';
 import { useGetSсheduleByidQuery } from '@/services/film-sevice';
 import { Seats } from '@/components/Seats';
 import { useCurrentTime } from './hooks/useCurrentTime';
-import { EnumHallName, IChoosePlace, monthToLocal } from '@/shared/types';
-import { groupedSeatsByRow } from './utils/groupedSeatsByRow';
-import { formateDate } from '@/shared/utils';
-import { Button } from '@/ui';
+import { EnumHallName, IChoosePlace } from '@/shared/types';
+import { Button, ChoosesSeats, DateSchedule } from '@/ui';
 
 interface FilmChooseSeatProps {
   schedule: ScheduleState;
@@ -30,11 +28,6 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
   const { data } = useGetSсheduleByidQuery(params?.id || '');
 
   const currentTime = useCurrentTime(data?.schedules, schedule);
-
-  const groupedChooseSeats = groupedSeatsByRow(chooseSeats);
-  const currentFormateDate = useMemo(() => {
-    return formateDate(schedule.date);
-  }, [schedule.date]);
 
   useEffect(() => {
     clearChooseSeats();
@@ -72,28 +65,19 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
             <div className={st.choose__item}>
               <div className={st.choose__txt}>Дата и время</div>
               <div className={st.choose__txt_value}>
-                {currentFormateDate.getDate()}{' '}
-                {monthToLocal[currentFormateDate.getMonth()]}{' '}
-                {currentTime?.time || ''}
+                <DateSchedule
+                  date={schedule.date}
+                  time={currentTime?.time || ''}
+                />
               </div>
             </div>
             <div className={st.choose__item}>
               <div className={st.choose__txt}>Места</div>
               <div className={st.choose__txt_value}>
-                {groupedChooseSeats
-                  .sort((a, b) => a.row - b.row)
-                  .map((seats) => (
-                    <div key={seats.row} className={st.choose__row}>
-                      Ряд {seats.row} -
-                      {seats.columns.map((column, idx) => (
-                        <>
-                          {column}
-                          {idx !== seats.columns.length - 1 && ','}
-                        </>
-                      ))}
-                    </div>
-                  ))}
-                {groupedChooseSeats.length === 0 && 'Выберите место'}
+                <ChoosesSeats
+                  seats={chooseSeats}
+                  rowClassName={st.choose__row}
+                />
               </div>
             </div>
             <div className={st.choose__item}>
