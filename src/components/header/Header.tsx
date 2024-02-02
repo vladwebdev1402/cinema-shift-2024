@@ -14,7 +14,7 @@ const Header = () => (
         <Link to={ROUTER_PATHS.profile}>Профиль</Link>
         <Link to={ROUTER_PATHS.tickets}>Билеты</Link>
       </nav>
-      <Link to={ROUTER_PATHS.tickets} className={st.header__auth}>
+      <Link to={ROUTER_PATHS.auth} className={st.header__auth}>
         <Exit />
         Войти
       </Link>

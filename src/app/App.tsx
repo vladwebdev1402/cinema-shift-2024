@@ -1,13 +1,18 @@
-import { Provider } from 'react-redux';
-
+import { useEffect } from 'react';
 import './App.scss';
 import '@/shared/styles/fonts.scss';
 import Router from './Router';
-import { store } from '@/shared/store';
+import { useAppDispatch, useAppSelector } from '@/shared/hooks';
+import { getUserSession } from '@/services/auth-slice';
 
-const App = () => (
-  <Provider store={store}>
-    <Router />
-  </Provider>
-);
+const App = () => {
+  const { isAuth } = useAppSelector((state) => state.UserReducer);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isAuth) dispatch(getUserSession());
+  }, [isAuth]);
+
+  return <Router />;
+};
 export default App;
