@@ -6,12 +6,15 @@ import { EnumOrderStatus, IOrder } from '@/shared/types';
 import { useGetFilmByIdQuery } from '@/services/film-sevice';
 import { Button, ChoosesSeats, Skeleton } from '@/ui';
 import { convertDate } from './utils/convertDate';
+import { useCancelTicketMutation } from '@/services/tickets-service';
 
 interface OrderCardProps {
   order: IOrder;
 }
 
 const OrderCard: FC<OrderCardProps> = ({ order }) => {
+  const [cancelTicket, { isLoading: cancelLoading }] =
+    useCancelTicketMutation();
   const { data, isLoading } = useGetFilmByIdQuery(
     (order.tickets[0] && order.tickets[0].filmId) || '',
   );
@@ -20,7 +23,9 @@ const OrderCard: FC<OrderCardProps> = ({ order }) => {
     [st.order__status_payed]: order.status === 'PAYED',
   });
 
-  const onReturnClick = () => {};
+  const onReturnClick = () => {
+    cancelTicket(order.orderNumber.toString());
+  };
 
   return (
     <div className={st.order}>
@@ -48,6 +53,7 @@ const OrderCard: FC<OrderCardProps> = ({ order }) => {
         variant='outlined'
         fullWidth
         className={st.order__return}
+        loading={cancelLoading}
       >
         Вернуть билет
       </Button>

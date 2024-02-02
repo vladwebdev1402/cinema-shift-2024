@@ -12,11 +12,13 @@ export const TicketService = createApi({
       return headers;
     },
   }),
+  tagTypes: ['TICKET'],
   endpoints: (build) => ({
     getAllOrders: build.query<GetAllOrdersResponse, void>({
       query: () => ({
         url: `/cinema/orders`,
       }),
+      providesTags: ['TICKET'],
     }),
     payTicket: build.mutation<PayTicketResponse, PayTicket>({
       query: (order) => ({
@@ -41,7 +43,21 @@ export const TicketService = createApi({
         } catch {}
       },
     }),
+    cancelTicket: build.mutation<void, string>({
+      query: (orderId) => ({
+        url: '/cinema/orders/cancel',
+        body: {
+          orderId,
+        },
+        method: 'PUT',
+      }),
+      invalidatesTags: ['TICKET'],
+    }),
   }),
 });
 
-export const { useGetAllOrdersQuery, usePayTicketMutation } = TicketService;
+export const {
+  useGetAllOrdersQuery,
+  usePayTicketMutation,
+  useCancelTicketMutation,
+} = TicketService;
