@@ -5,11 +5,17 @@ import classNames from 'classnames';
 
 interface SeatProps extends React.HTMLAttributes<HTMLButtonElement> {
   type: TPlaceType;
+  price: number;
+  row: number;
+  column: number;
   active?: boolean;
 }
 
 const Seat: FC<SeatProps> = ({
   type,
+  column,
+  price,
+  row,
   active = false,
   onClick,
   children,
@@ -27,6 +33,12 @@ const Seat: FC<SeatProps> = ({
       disabled={type === 'BLOCKED'}
       className={buttonClasses}
     >
+      <div className={st.seat__info}>
+        <div className={st.seat__price}>{price} ₽</div>
+        <div className={st.seat__place}>
+          {row} ряд, {column} место
+        </div>
+      </div>
       <span>{children}</span>
     </button>
   );

@@ -13,6 +13,7 @@ export const useSchedule = (schedules: undefined | ISchedule[]) => {
     setSchedule({
       ...schedule,
       date,
+      time: ""
     });
   };
 

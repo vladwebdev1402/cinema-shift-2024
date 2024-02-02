@@ -6,13 +6,19 @@
   border-radius: 16px;
   font-weight: 600;
   transition: 0.3s;
+  border: 1px solid transparent;
+
+  &:disabled {
+    background-color: var(--indicator-medium);
+    color: var(--invert);
+  }
 }
 
 .button_fullWidth {
   width: 100%;
 }
 
-.button_contained {
+.button_contained:not(.button_disabled) {
   background-color: var(--purple);
   color: var(--invert);
   border: 1px solid var(--purple);
@@ -22,11 +28,11 @@
   }
 }
 
-.button_outlined {
+.button_outlined:not(.button_disabled) {
   border: 1px solid var(--border-light);
   color: var(--text-secondary);
   &:hover {
-    background-color: var(--bg-secondary);
+    background-color: var(--indicator-light);
   }
 }
 

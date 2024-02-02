@@ -10,6 +10,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: FC<Props> = ({
   variant = 'contained',
   className = '',
+  disabled = false,
   children,
   StartIcon,
   fullWidth,
@@ -20,10 +21,11 @@ const Button: FC<Props> = ({
     [st.button_outlined]: variant === 'outlined',
     [st.button_text]: variant === 'text',
     [st.button_fullWidth]: fullWidth,
+    [st.button_disabled]: disabled,
   });
 
   return (
-    <button className={btnClasses} {...props}>
+    <button className={btnClasses} {...props} disabled={disabled}>
       {StartIcon && <div className={st.button__icon}>{StartIcon}</div>}
       {children}
     </button>

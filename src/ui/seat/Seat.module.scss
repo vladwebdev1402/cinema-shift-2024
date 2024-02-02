@@ -1,4 +1,5 @@
 .button {
+  position: relative;
   width: 16px;
   height: 16px;
   background-color: var(--purple-dark);
@@ -13,6 +14,11 @@
 
   &:hover {
     background-color: var(--purple);
+  }
+  &:hover:not(:disabled) {
+  .seat__info {
+      display: block;
+    }
   }
 
   &:disabled {
@@ -29,4 +35,25 @@
   span {
     display: inline;
   }
+}
+
+.seat__info {
+  position: absolute;
+  top: -60px;
+  font-size: 12px;
+  display: none;
+  white-space: nowrap;
+  background-color: var(--invert);
+  text-align: left;
+  padding: 6px;
+}
+
+.seat__price {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.seat__place {
+  margin-top: 4px;
+  color: var(--text-tertiary);
 }

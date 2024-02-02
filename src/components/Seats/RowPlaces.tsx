@@ -27,6 +27,9 @@ const RowPlaces: FC<RowPlacesProps> = ({
             <Seat
               type={place.type}
               className={st.seat_btn}
+              column={idx + 1}
+              row={numberRow}
+              price={place.price}
               onClick={() =>
                 onSeatClick({
                   column: idx + 1,
