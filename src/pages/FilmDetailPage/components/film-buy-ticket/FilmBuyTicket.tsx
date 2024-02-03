@@ -3,13 +3,15 @@ import { FC, useState } from 'react';
 
 import st from './FilmBuyTicket.module.scss';
 import { Modal } from '@/ui';
-import { FormCardValues, FormQuestionnaireValues } from './types/form';
-import QuestionnaireForm from './QuestionnaireForm';
+import { FormCardValues } from './types/form';
 import CardForm from './CardForm';
-import { usePayTicketMutation } from '@/services/film-sevice';
 import { ScheduleState } from '../../types/ScheduleState';
 import { IChoosePlace } from '@/shared/types';
 import OrderInfo from './OrderInfo';
+import { IUser } from '@/shared/types/IUser';
+import { UserForm } from '@/components/UserForm';
+import { useAppSelector } from '@/shared/hooks';
+import { usePayTicketMutation } from '@/services/tickets-service';
 
 interface FilmBuyTicketProps {
   onCloseBuy: () => void;
@@ -24,16 +26,19 @@ const FilmBuyTicket: FC<FilmBuyTicketProps> = ({
 }) => {
   const params = useParams<{ id: string }>();
   const [payTicket, { isLoading, isSuccess, data }] = usePayTicketMutation();
+  const { user } = useAppSelector((state) => state.UserReducer);
 
   const [isPayment, setIsPayment] = useState(false);
-  const [questionnaire, setQuestionnaire] = useState<FormQuestionnaireValues>({
-    firstname: '',
-    lastname: '',
-    middlename: '',
-    phone: '',
-  });
+  const [questionnaire, setQuestionnaire] = useState<IUser>(
+    user || {
+      firstname: '',
+      lastname: '',
+      middlename: '',
+      phone: '',
+    },
+  );
 
-  const saveQuestionnaire = (data: FormQuestionnaireValues) => {
+  const saveQuestionnaire = (data: IUser) => {
     setQuestionnaire(data);
     setIsPayment(true);
   };
@@ -78,10 +83,7 @@ const FilmBuyTicket: FC<FilmBuyTicketProps> = ({
   if (!isPayment)
     return (
       <Modal onClose={() => onCloseBuy()} title='Введите ваши даные'>
-        <QuestionnaireForm
-          saveQuestionnaire={saveQuestionnaire}
-          questionnaire={questionnaire}
-        />
+        <UserForm handleUserSubmit={saveQuestionnaire} user={questionnaire} />
       </Modal>
     );
 };

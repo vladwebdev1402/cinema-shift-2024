@@ -3,6 +3,7 @@ import { IFilm } from './IFilm';
 import { TAgeRating } from './TAgeRating';
 import { TProfession } from './TProfession';
 import { EnumAgeRating } from './TAgeRating';
+import { IOrder, EnumOrderStatus, TOrderStatus } from './IOrder';
 import {
   ISchedule,
   ISeance,
@@ -17,7 +18,7 @@ import {
 
 export { daysOfWeek, monthToLocal };
 
-export { EnumAgeRating, EnumHallName };
+export { EnumAgeRating, EnumHallName, EnumOrderStatus };
 
 export type {
   IActor,
@@ -30,4 +31,6 @@ export type {
   IChoosePlace,
   TPlaceType,
   THallName,
+  IOrder,
+  TOrderStatus,
 };

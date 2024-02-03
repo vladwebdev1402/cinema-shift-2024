@@ -3,9 +3,10 @@ import { IOrder } from '@/shared/types/IOrder';
 import AcceptImg from '@/shared/assets/Accept.jpg';
 import st from './FilmBuyTicket.module.scss';
 import { useGetFilmByIdQuery } from '@/services/film-sevice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, ChoosesSeats, DateSchedule } from '@/ui';
 import { ScheduleState } from '../../types/ScheduleState';
+import { ROUTER_PATHS } from '@/shared/constants';
 interface OrderInfoProps {
   order: IOrder;
   schedule: ScheduleState;
@@ -13,7 +14,12 @@ interface OrderInfoProps {
 
 const OrderInfo: FC<OrderInfoProps> = ({ order, schedule }) => {
   const params = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { currentData } = useGetFilmByIdQuery(params.id || '');
+
+  const onReturn = () => {
+    navigate(ROUTER_PATHS.profile);
+  };
 
   return (
     <div>
@@ -44,7 +50,12 @@ const OrderInfo: FC<OrderInfoProps> = ({ order, schedule }) => {
           <ChoosesSeats seats={order.tickets} />
         </div>
       </div>
-      <Button variant='text' className={st.info__button} fullWidth>
+      <Button
+        variant='text'
+        className={st.info__button}
+        fullWidth
+        onClick={onReturn}
+      >
         Вернуться в личный кабинет
       </Button>
     </div>

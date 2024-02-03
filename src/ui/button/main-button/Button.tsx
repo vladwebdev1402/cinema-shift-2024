@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 import st from './Button.module.scss';
+import { Loader } from '@/ui';
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'contained' | 'outlined' | 'text';
   loading?: boolean;
@@ -29,7 +30,7 @@ const Button: FC<Props> = ({
   return (
     <button className={btnClasses} {...props} disabled={disabled || loading}>
       {StartIcon && <div className={st.button__icon}>{StartIcon}</div>}
-      {loading ? <div className={st.button__loader}></div> : children}
+      {loading ? <Loader /> : children}
     </button>
   );
 };

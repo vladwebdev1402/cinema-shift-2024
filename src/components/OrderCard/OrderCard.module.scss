@@ -1,0 +1,66 @@
+.order {
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--border-extra-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.order__date {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-quartenery);
+}
+.order__film {
+  text-align: center;
+  margin-top: 20px;
+}
+.order__film_loading {
+  height: 16px;
+  width: 140px;
+  margin: 0 auto;
+}
+.order__info {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order__status {
+  padding: 4px 12px;
+  border-radius: 150px;
+  font-size: 14px;
+}
+
+.order__status_payed {
+  color: var(--indicator-positive);
+  background-color: rgba(236, 249, 242, 1);
+}
+
+.order__status_cancaled {
+  color: var(--indicator-attention);
+  background-color: rgb(255, 243, 229);
+
+}
+
+.order__code {
+  font-size: 14px;
+  color: var(--text-quartenery);
+  white-space: nowrap;
+}
+
+.order__seats {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.order__return {
+  margin-top: auto;
+}
