@@ -33,3 +33,9 @@ export interface GetAllOrdersResponse {
   reason: string;
   orders: IOrder[];
 }
+
+export interface PayTicketError {
+  success: boolean;
+  reason: string;
+  tickets: {row: number, column: number}[]
+}

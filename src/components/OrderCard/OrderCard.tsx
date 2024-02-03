@@ -31,7 +31,10 @@ const OrderCard: FC<OrderCardProps> = ({ order }) => {
     if (order.tickets.length > 0 && order.tickets[0].seance) {
       return (
         new Date().getTime() -
-          formateDate(order.tickets[0].seance.date).getTime() >
+          formateDate(
+            order.tickets[0].seance.date,
+            order.tickets[0].seance.time,
+          ).getTime() >
         0
       );
     }
