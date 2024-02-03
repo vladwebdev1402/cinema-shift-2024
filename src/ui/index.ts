@@ -9,6 +9,7 @@ import Input from './input/Input';
 import ChoosesSeats from './ChoosesSeats/ChoosesSeats';
 import DateSchedule from './DateSchedule/DateSchedule';
 import Loader from './loader/Loader';
+import MobileLink from './link/MobileLink';
 export {
   Button,
   Rating,
@@ -21,4 +22,5 @@ export {
   ChoosesSeats,
   DateSchedule,
   Loader,
+  MobileLink,
 };

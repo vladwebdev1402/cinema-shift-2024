@@ -3,6 +3,7 @@ import { Header } from '@/components/header';
 import { clearAfterAuth, getUserSession } from '@/services/auth-slice';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks';
 import { Outlet } from 'react-router-dom';
+import BottomNavigation from '@/components/BottomNavigation/BottomNavigation';
 
 const Root = () => {
   const { isAuth, code } = useAppSelector((state) => state.UserReducer);
@@ -22,7 +23,9 @@ const Root = () => {
     <>
       <Header />
       <Outlet />
-      <footer></footer>
+      <footer>
+        <BottomNavigation />
+      </footer>
     </>
   );
 };
