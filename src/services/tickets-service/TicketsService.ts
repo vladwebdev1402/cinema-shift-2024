@@ -43,15 +43,32 @@ export const TicketService = createApi({
         } catch {}
       },
     }),
-    cancelTicket: build.mutation<void, string>({
-      query: (orderId) => ({
+    cancelTicket: build.mutation<void, { phone: string; orderId: string }>({
+      query: (order) => ({
         url: '/cinema/orders/cancel',
         body: {
-          orderId,
+          orderId: order.orderId,
         },
         method: 'PUT',
       }),
-      invalidatesTags: ['TICKET'],
+      onQueryStarted(order, { dispatch, queryFulfilled }) {
+        const resultPatch = dispatch(
+          TicketService.util.updateQueryData(
+            'getAllOrders',
+            order.phone,
+            (draft) => {
+              const oldOrder = draft.orders.find(
+                (arrOrder) => arrOrder._id === order.orderId,
+              );
+              if (oldOrder) {
+                oldOrder.status = 'CANCELED';
+                oldOrder.tickets = [];
+              }
+            },
+          ),
+        );
+        queryFulfilled.catch(resultPatch.undo);
+      },
     }),
   }),
 });

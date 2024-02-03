@@ -16,7 +16,8 @@ export interface IOrder {
   status: TOrderStatus;
 }
 
-export type TOrderStatus = 'PAYED';
+export type TOrderStatus = 'PAYED' | 'CANCELED';
 export enum EnumOrderStatus {
   'PAYED' = 'Оплачен',
+  'CANCELED' = 'Возвращён',
 }

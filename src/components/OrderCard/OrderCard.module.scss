@@ -42,6 +42,12 @@
   background-color: rgba(236, 249, 242, 1);
 }
 
+.order__status_cancaled {
+  color: var(--indicator-attention);
+  background-color: rgb(255, 243, 229);
+
+}
+
 .order__code {
   font-size: 14px;
   color: var(--text-quartenery);
