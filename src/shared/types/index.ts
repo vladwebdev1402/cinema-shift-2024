@@ -12,7 +12,7 @@ import {
   EnumHallName,
   daysOfWeek,
   monthToLocal,
-  IScheduleState,
+  IChoosePlace,
 } from './ISchedule';
 
 export { daysOfWeek, monthToLocal };
@@ -27,7 +27,7 @@ export type {
   ISchedule,
   ISeance,
   IPlace,
+  IChoosePlace,
   TPlaceType,
   THallName,
-  IScheduleState,
 };

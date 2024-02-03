@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTER_PATHS } from '@/shared/constants';
 import { IFilm } from '@/shared/types';
-import st from './FilmCard.module.scss';
 import { Button, Rating } from '@/ui';
 import { FilmCardHead } from '.';
-import { routerPaths } from '@/shared/constants';
+import st from './FilmCard.module.scss';
 
 interface Props {
   film: IFilm;
@@ -15,7 +15,7 @@ const FilmCard: FC<Props> = ({ film }) => {
   const navigate = useNavigate();
 
   const moreClick = () => {
-    navigate(routerPaths.navFilmDetail(film.id));
+    navigate(ROUTER_PATHS.navFilmDetail(film.id));
   };
 
   return (
@@ -24,6 +24,7 @@ const FilmCard: FC<Props> = ({ film }) => {
         date={film.releaseDate}
         genres={film.genres}
         img={film.img}
+        country={film.country.name}
       />
       <div className={st.film__item}>
         <h3>{film.name}</h3>
@@ -35,8 +36,10 @@ const FilmCard: FC<Props> = ({ film }) => {
           Kinopoisk - <Rating rating={film.userRatings.kinopoisk} />
         </div>
       </div>
-      <div className={`${st.film__item} ${st.film__more}`} onClick={moreClick}>
-        <Button>Подробнее</Button>
+      <div className={`${st.film__item} ${st.film__more}`}>
+        <Button onClick={moreClick} fullWidth>
+          Подробнее
+        </Button>
       </div>
     </div>
   );

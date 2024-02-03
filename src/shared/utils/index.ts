@@ -1,3 +1,3 @@
 import { formateDate } from './formateDate';
-
-export { formateDate };
+import { onChangeWithRegexp } from './onChangeWithRegexp';
+export { formateDate, onChangeWithRegexp };

@@ -1,28 +1,23 @@
 import { useParams } from 'react-router-dom';
-
-import { FilmFullDescription } from '@/components/FilmCard';
-import { useGetSheduleByidQuery } from '@/services/film-sevice';
-import { FilmSchedule } from '@/modules/film-schedule';
 import { useEffect, useState } from 'react';
-import { IScheduleState } from '@/shared/types';
+
+import { useGetSсheduleByidQuery } from '@/services/film-sevice';
+import { FilmFullDescription } from './components/film-full-description';
+import { FilmSchedule } from './components/film-schedule';
+import { FilmChooseSeat } from './components/film-choose-seat';
+import { useChoose } from './hooks/useChoose';
+import { useSchedule } from './hooks/useSchedule';
+import { FilmBuyTicket } from './components/film-buy-ticket';
 
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
-  const { data, isError, isLoading } = useGetSheduleByidQuery(params?.id || '');
-  const [schedule, setSchedule] = useState<IScheduleState>({
-    date: '',
-    time: '',
-    hall: '',
-  });
+  const { data } = useGetSсheduleByidQuery(params?.id || '');
+  const { chooseSeats, onSeatClick, clearChooseSeats } = useChoose();
+  const { schedule, onClickDate, onClickTime } = useSchedule(data?.schedules);
+  const [isBuyOpen, setIsBuyOpen] = useState(false);
 
-  useEffect(() => {
-    if (data)
-      setSchedule({
-        date: data.schedules[0].date,
-        hall: data.schedules[0].seances[0].hall.name,
-        time: data.schedules[0].seances[0].time,
-      });
-  }, [data]);
+  const onOpenBuy = () => setIsBuyOpen(true);
+  const onCloseBuy = () => setIsBuyOpen(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -32,12 +27,24 @@ const FilmDetailPage = () => {
     <>
       <FilmFullDescription />
       <FilmSchedule
-        schedules={data?.schedules}
-        isError={isError}
-        isLoading={isLoading}
         schedule={schedule}
-        setSchedule={setSchedule}
+        onClickDate={onClickDate}
+        onClickTime={onClickTime}
       />
+      <FilmChooseSeat
+        schedule={schedule}
+        chooseSeats={chooseSeats}
+        onSeatClick={onSeatClick}
+        clearChooseSeats={clearChooseSeats}
+        onOpenBuy={onOpenBuy}
+      />
+      {isBuyOpen && (
+        <FilmBuyTicket
+          onCloseBuy={onCloseBuy}
+          schedule={schedule}
+          chooseSeats={chooseSeats}
+        />
+      )}
     </>
   );
 };

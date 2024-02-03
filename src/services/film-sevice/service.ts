@@ -1,21 +1,41 @@
-import { apiUrl } from '@/shared/constants';
+import { API_URL } from '@/shared/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IAllFilmResponse, IFilmByIdResponse, IFilmScheduleResponse } from './type';
+import {
+  IFilmByIdResponse,
+  IFilmScheduleResponse,
+  ITodayFilmResponse,
+  PayTicket,
+  PayTicketResponse,
+} from './type';
 
-export const AfishaService = createApi({
+export const CinemaService = createApi({
   reducerPath: 'AfishaService',
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (build) => ({
-    getAllFilms: build.query<IAllFilmResponse, void>({
+    getFilmsToday: build.query<ITodayFilmResponse, void>({
       query: () => '/cinema/today',
     }),
     getFilmById: build.query<IFilmByIdResponse, string>({
-      query: (id) => `cinema/film/${id}`,
+      query: (id) => `/cinema/film/${id}`,
     }),
-    getSheduleByid: build.query<IFilmScheduleResponse, string>({
-      query: (id) => `cinema/film/${id}/schedule`,
-    })
+    getSсheduleByid: build.query<IFilmScheduleResponse, string>({
+      query: (id) => `/cinema/film/${id}/schedule`,
+    }),
+    payTicket: build.mutation<PayTicketResponse, PayTicket>({
+      query: (order) => ({
+        url: `/cinema/payment`,
+        method: 'POST',
+        body: {
+          ...order,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllFilmsQuery, useGetFilmByIdQuery, useGetSheduleByidQuery } = AfishaService;
+export const {
+  useGetFilmsTodayQuery,
+  useGetFilmByIdQuery,
+  useGetSсheduleByidQuery,
+  usePayTicketMutation,
+} = CinemaService;

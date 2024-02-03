@@ -32,6 +32,7 @@ button {
     --indicator-light: rgba(206, 210, 218, 1);
     --indicator-medium: rgba(151, 161, 175, 1);
     --indicator-attention: rgba(255, 178, 25, 1);
+    --indicator-error: rgba(246, 76, 76, 1);
     --bg-secondary: rgba(245, 245, 248, 1);
     --border-light: rgba(206, 210, 218, 1);
 }
@@ -40,6 +41,14 @@ button {
     max-width: 960px;
     padding: 0 16px;
     margin: 0 auto;
+}
+
+.block_scroll {
+    overflow: hidden;
+}
+
+footer {
+    height: 250px;
 }
 
 

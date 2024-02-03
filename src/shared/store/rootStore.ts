@@ -1,14 +1,14 @@
-import { AfishaService } from '@/services/film-sevice';
+import { CinemaService } from '@/services/film-sevice';
 import { configureStore, combineReducers } from '@reduxjs/toolkit/react';
 
 const reducers = combineReducers({
-  [AfishaService.reducerPath]: AfishaService.reducer,
+  [CinemaService.reducerPath]: CinemaService.reducer,
 });
 
 export const store = configureStore({
   reducer: reducers,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(AfishaService.middleware),
+    getDefaultMiddleware().concat(CinemaService.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

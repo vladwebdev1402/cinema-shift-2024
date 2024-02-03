@@ -1,0 +1,50 @@
+.buy__input, .buy__btn {
+    margin-top: 24px;
+}
+
+.card__form {
+    max-width: 333px;
+}
+
+.card {
+    padding: 24px;
+    background-color: rgba(243, 244, 246, 1);
+    border-radius: 16px;
+    width: 100%;
+}
+
+.card__bottom {
+    display: flex;
+    margin-top: 16px;
+    gap: 24px;
+}
+
+.card__buy {
+    margin-top: 24px;
+}
+
+.info__header { 
+    text-align: center;
+    h2 {
+        margin-top: 16px;
+    }
+}
+.info__item {
+    margin-top: 16px;
+}
+.info__title {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.info__value {
+    margin-top: 4px;
+}
+
+.modal__info {
+    padding-top: 32px;
+}
+
+.info__button {
+    margin-top: 24px;
+}

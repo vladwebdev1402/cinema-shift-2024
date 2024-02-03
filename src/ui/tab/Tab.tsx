@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import classNames from 'classnames';
 import st from './Tab.module.scss';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,18 +16,15 @@ const Tab: FC<Props> = ({
   variant = 'contained',
   ...props
 }) => {
+  const tabClasses = classNames(className, st.tab, {
+    [st.tab_contained_active]: active && variant === 'contained',
+    [st.tab_outlined_active]: active && variant === 'outlined',
+    [st.tab_contained]: variant === 'contained',
+    [st.tab_outlined]: variant === 'outlined',
+  });
+
   return (
-    <button
-      className={[
-        className,
-        st.tab,
-        active && variant === 'contained' ? st.tab_contained_active : '',
-        active && variant === 'outlined' ? st.tab_outlined_active : '',
-        variant === 'contained' ? st.tab_contained : '',
-        variant === 'outlined' ? st.tab_outlined : '',
-      ].join(' ')}
-      {...props}
-    >
+    <button className={tabClasses} {...props}>
       <div className={`${withBorder ? st.tab_border : ''} ${st.tab__body}`}>
         {children}
       </div>
