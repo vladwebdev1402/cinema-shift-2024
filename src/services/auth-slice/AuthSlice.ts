@@ -13,13 +13,13 @@ interface UserSliceState {
   error: string;
   user: IUser | null;
   isAuth: boolean;
-  code: boolean;
+  code: number;
 }
 
 const initialState: UserSliceState = {
   error: '',
   user: null,
-  code: false,
+  code: 0,
   isAuth: TokenService.checkToken(),
   isLoading: false,
 };
@@ -29,8 +29,7 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     clearAfterAuth: (state) => {
-      state.code = false;
-      state.isAuth = true;
+      state.code = 0;
     },
     logout: (state) => {
       state.isAuth = false;
@@ -46,9 +45,9 @@ const UserSlice = createSlice({
       state.isLoading = true;
       state.error = '';
     });
-    builder.addCase(fetchCode.fulfilled, (state) => {
+    builder.addCase(fetchCode.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.code = true;
+      state.code = action.payload!.retryDelay;
     });
     builder.addCase(fetchCode.rejected, (state) => {
       state.isLoading = false;
@@ -60,6 +59,7 @@ const UserSlice = createSlice({
     });
     builder.addCase(authByCode.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.isAuth = true;
       TokenService.setToken(action.payload!.token);
       state.user = {
         middlename: '',
@@ -70,7 +70,7 @@ const UserSlice = createSlice({
       state.isLoading = false;
       state.isAuth = false;
       TokenService.removeToken();
-      state.error = 'Ошибка';
+      state.error = 'Неправильно введён код';
     });
     builder.addCase(getUserSession.pending, (state) => {
       state.isLoading = true;

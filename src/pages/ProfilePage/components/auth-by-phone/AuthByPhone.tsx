@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-
+import { useEffect } from 'react';
 import st from './Auth.module.scss';
 import { Button, Input } from '@/ui';
 import { onChangeWithRegexp } from '@/shared/utils';
-import { useAppDispatch, useAppSelector } from '@/shared/hooks';
+import { useAppDispatch, useAppSelector, useTimer } from '@/shared/hooks';
 import { authByCode, fetchCode } from '@/services/auth-slice';
 
 interface AuthForm {
@@ -19,11 +19,19 @@ const AuthByPhone = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthForm>();
-
-  const { code, isLoading } = useAppSelector((state) => state.UserReducer);
+  const dispatch = useAppDispatch();
+  const { code, isLoading, error } = useAppSelector(
+    (state) => state.UserReducer,
+  );
+  const { seconds, resetTimer } = useTimer(0);
 
   const onSubmit = handleSubmit((data) => {
-    if (!code) dispatch(fetchCode(data.phone));
+    if (!code) {
+      dispatch(fetchCode(data.phone));
+    }
+    if (code && seconds === 0) {
+      dispatch(fetchCode(data.phone));
+    }
     if (code)
       dispatch(
         authByCode({
@@ -33,7 +41,9 @@ const AuthByPhone = () => {
       );
   });
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    resetTimer(code / 1000);
+  }, [code]);
 
   return (
     <div className={`container ${st.auth}`}>
@@ -60,7 +70,7 @@ const AuthByPhone = () => {
             isError={!!errors.phone}
             errorMessage={errors.phone?.message || ''}
           />
-          {code && (
+          {!!code && (
             <Input
               className={st.auth__item}
               fullWidth
@@ -80,8 +90,8 @@ const AuthByPhone = () => {
                 setValue('code', value),
               )}
               value={watch('code')}
-              isError={!!errors.code}
-              errorMessage={errors.code?.message || ''}
+              isError={!!errors.code || !!error}
+              errorMessage={errors.code?.message || error}
             />
           )}
           <Button
@@ -92,6 +102,17 @@ const AuthByPhone = () => {
           >
             {code ? 'Авторизоваться' : 'Продолжить'}
           </Button>
+          {!!code && (
+            <Button
+              variant='text'
+              disabled={seconds > 0}
+              className={`${st.auth__item} ${st.auth__btn}`}
+              fullWidth
+              type='submit'
+            >
+              Вы можете запросить код через {seconds}
+            </Button>
+          )}
         </form>
       </div>
     </div>

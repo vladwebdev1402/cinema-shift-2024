@@ -8,7 +8,6 @@ import {
 import Root from './Root';
 import { MainPage } from '@/pages/MainPage';
 import { FilmDetailPage } from '@/pages/FilmDetailPage';
-import { AuthPage } from '@/pages/AuthPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { ROUTER_PATHS } from '@/shared/constants';
 import { TicketsPage } from '@/pages/TicketsPage';
@@ -19,7 +18,6 @@ const router = createBrowserRouter(
       <Route index element={<MainPage />} />
       <Route path={ROUTER_PATHS.filmDetail} element={<FilmDetailPage />} />
       <Route path={ROUTER_PATHS.profile} element={<ProfilePage />} />
-      <Route path={ROUTER_PATHS.auth} element={<AuthPage />} />
       <Route path={ROUTER_PATHS.tickets} element={<TicketsPage />} />
     </Route>,
   ),

@@ -4,7 +4,7 @@ export interface CreateOtpResponse {
   data: {
     success: boolean;
     reason: string;
-    retryDealy: number;
+    retryDelay: number;
   };
 }
 

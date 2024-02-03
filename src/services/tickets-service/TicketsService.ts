@@ -14,7 +14,7 @@ export const TicketService = createApi({
   }),
   tagTypes: ['TICKET'],
   endpoints: (build) => ({
-    getAllOrders: build.query<GetAllOrdersResponse, void>({
+    getAllOrders: build.query<GetAllOrdersResponse, string>({
       query: () => ({
         url: `/cinema/orders`,
       }),
@@ -28,13 +28,13 @@ export const TicketService = createApi({
           ...order,
         },
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(order, { dispatch, queryFulfilled }) {
         try {
           const response = await queryFulfilled;
           dispatch(
             TicketService.util.updateQueryData(
               'getAllOrders',
-              undefined,
+              order.person.phone,
               (draft) => {
                 draft.orders.push(response.data.order);
               },

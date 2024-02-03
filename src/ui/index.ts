@@ -8,6 +8,7 @@ import Modal from './modal/Modal';
 import Input from './input/Input';
 import ChoosesSeats from './ChoosesSeats/ChoosesSeats';
 import DateSchedule from './DateSchedule/DateSchedule';
+import Loader from './loader/Loader';
 export {
   Button,
   Rating,
@@ -19,4 +20,5 @@ export {
   Input,
   ChoosesSeats,
   DateSchedule,
+  Loader,
 };

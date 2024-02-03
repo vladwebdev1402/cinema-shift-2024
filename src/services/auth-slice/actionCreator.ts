@@ -10,7 +10,7 @@ export const fetchCode = createAsyncThunk(
       const response = await userAPI.getCode(phone);
       return response;
     } catch {
-      thunkAPI.rejectWithValue('Ошибка');
+      return thunkAPI.rejectWithValue('Ошибка');
     }
   },
 );
@@ -22,7 +22,7 @@ export const authByCode = createAsyncThunk(
       const response = await userAPI.authByCode(data);
       return response;
     } catch {
-      thunkAPI.rejectWithValue('Ошибка');
+      return thunkAPI.rejectWithValue('Ошибка');
     }
   },
 );
@@ -34,16 +34,19 @@ export const getUserSession = createAsyncThunk(
       const response = await userAPI.getSession();
       return response;
     } catch {
-      thunkAPI.rejectWithValue('Ошибка');
+      return thunkAPI.rejectWithValue('Ошибка');
     }
   },
-); 
+);
 
-export const updateUser = createAsyncThunk("user/update", async (user: IUser, thunkAPI) => {
-  try {
-    await userAPI.updateUser(user);
-    return user;
-  } catch {
-    thunkAPI.rejectWithValue('Ошибка');
-  }
-})
+export const updateUser = createAsyncThunk(
+  'user/update',
+  async (user: IUser, thunkAPI) => {
+    try {
+      await userAPI.updateUser(user);
+      return user;
+    } catch {
+      return thunkAPI.rejectWithValue('Ошибка');
+    }
+  },
+);

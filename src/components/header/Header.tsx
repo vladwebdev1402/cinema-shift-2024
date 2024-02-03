@@ -4,10 +4,17 @@ import st from './Header.module.scss';
 import { ROUTER_PATHS } from '@/shared/constants';
 import Logo from '@/shared/assets/logo.svg?react';
 import Exit from '@/shared/assets/exit.svg?react';
-import { useAppSelector } from '@/shared/hooks';
+import { useAppDispatch, useAppSelector } from '@/shared/hooks';
+import { Button } from '@/ui';
+import { logout } from '@/services/auth-slice';
 
 const Header = () => {
   const { isAuth } = useAppSelector((state) => state.UserReducer);
+  const dispatch = useAppDispatch();
+
+  const onLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <header className={st.header}>
@@ -19,11 +26,15 @@ const Header = () => {
           <Link to={ROUTER_PATHS.profile}>Профиль</Link>
           <Link to={ROUTER_PATHS.tickets}>Билеты</Link>
         </nav>
-        {!isAuth && (
-          <Link to={ROUTER_PATHS.auth} className={st.header__auth}>
-            <Exit />
-            Войти
-          </Link>
+        {isAuth && (
+          <Button
+            className={st.header__auth}
+            StartIcon={<Exit />}
+            variant='text'
+            onClick={onLogout}
+          >
+            Выйти
+          </Button>
         )}
       </div>
     </header>

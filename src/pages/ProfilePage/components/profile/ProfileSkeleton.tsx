@@ -1,6 +1,5 @@
 import { Skeleton } from '@/ui';
-import st from './ProfilePage.module.scss';
-
+import st from './Profile.module.scss';
 const ProfileSkeleton = () => {
   return (
     <>

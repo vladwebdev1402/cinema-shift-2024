@@ -53,22 +53,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.button__loader {
-  height: 16px;
-  width: 16px;
-  border: 2px solid var(--purple);
-  border-right: none;
-  border-bottom: none;
-  border-radius: 50%;
-  animation: load 0.5s linear 0s infinite ;
-}
-
-@keyframes load {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
