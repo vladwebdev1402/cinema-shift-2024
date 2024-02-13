@@ -1,0 +1,62 @@
+.seats_body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+  margin-top: 24px;
+}
+
+.row_number {
+  width: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 24px;
+}
+
+.txt {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.txt__row {
+    margin-top: 24px;
+}
+
+.seat {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+
+.seat_btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.txt_screen {
+  text-align: center;
+  width: 100%;
+}
+
+.screen {
+  max-width: 410px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.screen_icon {
+  width: 100%;
+  background-color: var(--indicator-light);
+  height: 4px;
+  border-radius: 16px;
+  margin: 8px;
+}
+
+@media (max-width: 768px) {
+  .seats {
+    display: none;
+  }
+}

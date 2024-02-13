@@ -12,7 +12,13 @@ import { FilmBuyTicket } from './components/film-buy-ticket';
 const FilmDetailPage = () => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSсheduleByidQuery(params?.id || '');
-  const { chooseSeats, onSeatClick, clearChooseSeats } = useChoose();
+  const {
+    chooseSeats,
+    onSeatClick,
+    clearChooseSeats,
+    onSeatSelect,
+    deleteSeat,
+  } = useChoose();
   const { schedule, onClickDate, onClickTime } = useSchedule(data?.schedules);
   const [isBuyOpen, setIsBuyOpen] = useState(false);
 
@@ -35,8 +41,10 @@ const FilmDetailPage = () => {
         schedule={schedule}
         chooseSeats={chooseSeats}
         onSeatClick={onSeatClick}
+        onSeatSelect={onSeatSelect}
         clearChooseSeats={clearChooseSeats}
         onOpenBuy={onOpenBuy}
+        deleteSeat={deleteSeat}
       />
       {isBuyOpen && (
         <FilmBuyTicket

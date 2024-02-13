@@ -1,5 +1,5 @@
-export const formateDate = (date: string): Date => {
+export const formateDate = (date: string, time?: string): Date => {
     const [day, month, year] = date.split('.');
-    return new Date(2000 + +year, +month - 1, +day);
-    
+    const [hours, minute] = time?.split(":") || ['00', '00']
+    return new Date(2000 + +year, +month - 1, +day, +hours, +minute);
 }

@@ -3,7 +3,7 @@ import { FC } from 'react';
 import st from './Seats.module.scss';
 import { IChoosePlace, IPlace } from '@/shared/types';
 import { Seat } from '@/ui';
-import { checkActive } from './utils/checkActive';
+import { checkSeatInChooses } from '@/shared/utils';
 
 interface RowPlacesProps {
   chooseSeats: IChoosePlace[];
@@ -37,7 +37,7 @@ const RowPlaces: FC<RowPlacesProps> = ({
                   price: place.price,
                 })
               }
-              active={checkActive(chooseSeats, numberRow, idx + 1)}
+              active={checkSeatInChooses(chooseSeats, numberRow, idx + 1)}
             >
               {idx + 1}
             </Seat>

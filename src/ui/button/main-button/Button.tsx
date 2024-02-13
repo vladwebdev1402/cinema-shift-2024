@@ -7,6 +7,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   fullWidth?: boolean;
   StartIcon?: React.ReactNode;
+  EndIcon?: React.ReactNode;
 }
 
 const Button: FC<Props> = ({
@@ -16,6 +17,7 @@ const Button: FC<Props> = ({
   loading = false,
   children,
   StartIcon,
+  EndIcon,
   fullWidth,
   ...props
 }) => {
@@ -31,6 +33,7 @@ const Button: FC<Props> = ({
     <button className={btnClasses} {...props} disabled={disabled || loading}>
       {StartIcon && <div className={st.button__icon}>{StartIcon}</div>}
       {loading ? <Loader /> : children}
+      {EndIcon && <div className={st.button__icon}>{EndIcon}</div>}
     </button>
   );
 };

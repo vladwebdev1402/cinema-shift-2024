@@ -2,13 +2,13 @@ import { monthToLocal } from "@/shared/types";
 import { formateDate } from "@/shared/utils"
 
 const DATE_TO_DAYWEEK = [
+    "воскресенье",
     "понедельник",
     "вторник",
     "среда",
     "четверг",
     "пятница",
     "суббота",
-    "воскресенье",
 ]
 
 export const convertDate = (currentDate: string) => {

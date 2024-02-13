@@ -4,15 +4,18 @@ import { useParams } from 'react-router-dom';
 import st from './FilmChooseSeat.module.scss';
 import { ScheduleState } from '../../types/ScheduleState';
 import { useGetSсheduleByidQuery } from '@/services/film-sevice';
-import { Seats } from '@/components/Seats';
 import { useCurrentTime } from './hooks/useCurrentTime';
-import { EnumHallName, IChoosePlace } from '@/shared/types';
+import { EnumHallName, IChoosePlace, ISelectSeat } from '@/shared/types';
 import { Button, ChoosesSeats, DateSchedule } from '@/ui';
+import { DesktopSeats } from '@/components/DesktopSeats';
+import { MobileSeats } from '@/components/MobileSeats';
 
 interface FilmChooseSeatProps {
   schedule: ScheduleState;
   chooseSeats: IChoosePlace[];
   onSeatClick: (seat: IChoosePlace) => void;
+  onSeatSelect: (prevSeat: ISelectSeat, seat: IChoosePlace) => void;
+  deleteSeat: (seat: ISelectSeat) => void;
   clearChooseSeats: () => void;
   onOpenBuy: () => void;
 }
@@ -23,6 +26,8 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
   onSeatClick,
   clearChooseSeats,
   onOpenBuy,
+  onSeatSelect,
+  deleteSeat,
 }) => {
   const params = useParams<{ id: string }>();
   const { data } = useGetSсheduleByidQuery(params?.id || '');
@@ -38,23 +43,24 @@ const FilmChooseSeat: FC<FilmChooseSeatProps> = ({
       <h2>Выбор места</h2>
       {schedule.time && (
         <div className={st.choose__body}>
-          <div className={st.choose__seat}>
-            <div className={st.choose__screen}>
-              <div className={`${st.choose__txt} ${st.choose__txt_screen}`}>
-                Экран
-              </div>
-              <div className={st.choose__screen_icon}></div>
-            </div>
-
-            {currentTime && (
-              <Seats
+          {currentTime && (
+            <>
+              <DesktopSeats
                 chooseSeats={chooseSeats}
                 onSeatClick={onSeatClick}
                 places={currentTime.hall.places}
                 className={st.choose__seats}
               />
-            )}
-          </div>
+              <MobileSeats
+                chooseSeats={chooseSeats}
+                onSeatSelect={onSeatSelect}
+                deleteSeat={deleteSeat}
+                places={currentTime.hall.places}
+                className={st.choose__seats}
+              />
+            </>
+          )}
+
           <div className={st.choose__info}>
             <div className={st.choose__item}>
               <div className={st.choose__txt}>Зал</div>

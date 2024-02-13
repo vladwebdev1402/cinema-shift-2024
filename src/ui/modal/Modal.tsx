@@ -1,12 +1,14 @@
-import { ComponentProps, FC, useEffect } from 'react';
+import { ComponentProps, FC, useEffect, useRef } from 'react';
 
-import st from './Modal.module.scss';
 import Cross from '@/shared/assets/сross.svg?react';
+
 import { Button } from '..';
+import st from './Modal.module.scss';
 
 interface ModalProps extends ComponentProps<'div'> {
   onClose: () => void;
   title?: string;
+  bodyClassName?: string;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -14,11 +16,28 @@ const Modal: FC<ModalProps> = ({
   onClose,
   children,
   className = '',
+  bodyClassName = '',
   ...props
 }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0];
+    const modal = modalRef.current;
+    const modalBody = bodyRef.current;
 
+    if (
+      modal &&
+      body &&
+      modalBody &&
+      modalBody.scrollHeight >= modal.clientHeight
+    ) {
+      modal.classList.add(st.modal_start);
+    } else if (modal) {
+      modal.classList.remove(st.modal_start);
+      modal.classList.add(st.modal_center);
+    }
     body.className += ' block_scroll';
 
     return () => {
@@ -31,8 +50,17 @@ const Modal: FC<ModalProps> = ({
   };
 
   return (
-    <div className={st.modal} onClick={onClose} {...props}>
-      <div className={`${className} ${st.modal__body}`} onClick={clickBody}>
+    <div
+      className={`${className} ${st.modal}`}
+      onClick={onClose}
+      {...props}
+      ref={modalRef}
+    >
+      <div
+        className={`${bodyClassName} ${st.modal__body}`}
+        onClick={clickBody}
+        ref={bodyRef}
+      >
         <Button
           variant='text'
           StartIcon={<Cross />}

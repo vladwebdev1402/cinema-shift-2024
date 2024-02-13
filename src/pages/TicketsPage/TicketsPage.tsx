@@ -1,11 +1,16 @@
-import { useGetAllOrdersQuery } from '@/services/tickets-service';
+import { useLazyGetAllOrdersQuery } from '@/services/tickets-service';
 import st from './Tickets.module.scss';
 import TicketsSkeleton from './TicketsSkeleton';
 import OrderCard from '@/components/OrderCard/OrderCard';
 import { useAppSelector } from '@/shared/hooks';
+import { useEffect } from 'react';
 const TicketsPage = () => {
   const { user, isAuth } = useAppSelector((state) => state.UserReducer);
-  const { data, isLoading } = useGetAllOrdersQuery(user?.phone || '');
+  const [getOrders, { data, isLoading }] = useLazyGetAllOrdersQuery();
+
+  useEffect(() => {
+    if (user) getOrders(user.phone);
+  }, [user]);
   return (
     <div className={`container ${st.tickets}`}>
       <h2>Билеты</h2>
@@ -15,7 +20,7 @@ const TicketsPage = () => {
             <OrderCard key={order._id} order={order} />
           ))}
 
-        {isLoading && <TicketsSkeleton />}
+        {isLoading && isAuth && <TicketsSkeleton />}
       </div>
       {data && isAuth && data.orders.length === 0 && (
         <h3>Вы не заказывали никаких билетов</h3>

@@ -75,6 +75,7 @@ export const TicketService = createApi({
 
 export const {
   useGetAllOrdersQuery,
+  useLazyGetAllOrdersQuery,
   usePayTicketMutation,
   useCancelTicketMutation,
 } = TicketService;
