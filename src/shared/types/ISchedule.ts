@@ -22,6 +22,11 @@ export interface IChoosePlace {
   column: number;
 }
 
+export interface ISelectSeat {
+  row: number | null;
+  column: number | null;
+}
+
 export type TPlaceType = 'ECONOM' | 'BLOCKED' | 'COMFORT';
 
 export type THallName = 'Red' | 'Blue' | 'Green';

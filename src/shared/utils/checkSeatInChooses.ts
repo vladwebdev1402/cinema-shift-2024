@@ -1,6 +1,6 @@
-import { IChoosePlace } from '@/shared/types';
+import { IChoosePlace } from '../types';
 
-export const checkActive = (
+export const checkSeatInChooses = (
   chooseSeats: IChoosePlace[],
   row: number,
   column: number,

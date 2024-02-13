@@ -11,15 +11,19 @@ interface SeatsProps {
   className?: string;
 }
 
-const Seats: FC<SeatsProps> = ({
+const DesktopSeats: FC<SeatsProps> = ({
   chooseSeats,
   places,
   onSeatClick,
   className,
 }) => {
   return (
-    <div className={`${className}`}>
-      <div className={st.txt}>Ряд</div>
+    <div className={`${st.seats} ${className}`}>
+      <div className={st.screen}>
+        <div className={`${st.txt} ${st.txt_screen}`}>Экран</div>
+        <div className={st.screen_icon}></div>
+      </div>
+      <div className={`${st.txt__row} ${st.txt}`}>Ряд</div>
       <div className={st.seats_body}>
         {places.map((row, idx) => (
           <RowPlaces
@@ -35,4 +39,4 @@ const Seats: FC<SeatsProps> = ({
   );
 };
 
-export default Seats;
+export default DesktopSeats;
