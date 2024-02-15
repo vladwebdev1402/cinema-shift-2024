@@ -1,5 +1,5 @@
 import { Button, Modal, Select } from '@/ui';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import st from './MobileSeats.module.scss';
 import { IChoosePlace, IPlace, ISelectSeat } from '@/shared/types';
 import ArrowRightIcon from '@/shared/assets/arrow-right.svg?react';
@@ -31,18 +31,28 @@ const Seat: FC<SeatProps> = ({
     column,
   });
 
+  const prevSeat = useRef<ISelectSeat | null>(null);
+
   const [isOpenRow, setIsOpenRow] = useState(false);
   const [isOpenColumn, setIsOpenColumn] = useState(false);
 
   const onRowChoose = (value: number) => {
-    deleteSeat(seat);
+    if (!prevSeat.current) {
+      prevSeat.current = { ...seat };
+    }
+
     setSeat({ column: null, row: value });
     setIsOpenRow(false);
     setIsOpenColumn(true);
   };
 
   const onColumnChoose = (value: number, price: number) => {
-    onSeatSelect(seat, { row: seat.row!, column: value, price });
+    onSeatSelect(prevSeat.current || seat, {
+      row: seat.row!,
+      column: value,
+      price,
+    });
+    prevSeat.current = null;
     setSeat({ ...seat, column: value });
     setIsOpenColumn(false);
     showAdd();

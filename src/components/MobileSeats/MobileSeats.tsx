@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import st from './MobileSeats.module.scss';
 
 import { IChoosePlace, IPlace, ISelectSeat } from '@/shared/types';
@@ -24,11 +24,17 @@ const MobileSeats: FC<SeatsProps> = ({
 
   const showAdd = () => setIsAdd(false);
 
+  useEffect(() => {
+    console.log('@ chooseSeats');
+    console.log(chooseSeats);
+  }, [chooseSeats]);
+
   return (
     <div className={`${className} ${st.seats}`}>
       <div className={st.seats__head}>
         {chooseSeats.map((seat, idx) => (
           <Seat
+            key={Math.random().toString(16).slice(2)}
             places={places}
             chooseSeats={chooseSeats}
             seatNumber={idx + 1}
@@ -43,7 +49,7 @@ const MobileSeats: FC<SeatsProps> = ({
           <Seat
             places={places}
             chooseSeats={chooseSeats}
-            seatNumber={chooseSeats.length || 1}
+            seatNumber={chooseSeats.length + 1 || 1}
             onSeatSelect={onSeatSelect}
             deleteSeat={deleteSeat}
             showAdd={showAdd}
